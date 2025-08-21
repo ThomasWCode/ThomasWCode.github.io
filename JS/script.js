@@ -1,6 +1,6 @@
-window.onload = () => {
+window.addEventListener("pageshow", () => {
   document.body.style.opacity = 1;
-};
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("a").forEach(link => {
@@ -120,3 +120,4 @@ document.getElementById('contactForm').addEventListener('reset', function() {
     resetButton();
 
 });
+
