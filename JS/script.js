@@ -16,6 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+    document.getElementById("subject").placeholder = "Tell me something interesting!";
+}
+
 document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
@@ -114,4 +118,5 @@ function resetButton() {
 document.getElementById('contactForm').addEventListener('reset', function() {
     document.getElementById('formStatus').style.display = 'none';
     resetButton();
+
 });
