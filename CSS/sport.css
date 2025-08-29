@@ -1,5 +1,6 @@
 html {
     scroll-behavior: smooth;
+    height: 100%;
 }
 
 body {
@@ -9,7 +10,19 @@ body {
     font-family: Arial, sans-serif;
     color: #333;
     background-color: #F0FFF0;
+    height: 100%;
+}
+
+.page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     padding-top: 80px;
+    box-sizing: border-box;
+}
+
+.content-wrapper {
+    flex: 1;
 }
 
 body.fade-out {
@@ -135,6 +148,7 @@ footer {
     padding: 1rem;
     background-color: #4CAF50;
     color: white;
+    margin-top: auto;
 }
 
 .contact-btn {
@@ -173,7 +187,7 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
-    body {
+    .page-container {
         padding-top: 120px;
     }
 
@@ -250,4 +264,3 @@ footer {
         text-align: center;
     }
 }
-  
