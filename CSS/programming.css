@@ -153,8 +153,7 @@ body.fade-out {
 }
 
 #open-all {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-radius: 20px;
     text-align: center;
     padding: 1rem;
     background-color: transparent;
@@ -171,6 +170,11 @@ footer {
     background-color: #4CAF50;
     color: white;
     margin-top: auto;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .contact-btn {
