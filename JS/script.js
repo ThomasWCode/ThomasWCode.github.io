@@ -136,6 +136,6 @@ function openLinks() {
   links.forEach((url, i) => {
     setTimeout(() => {
         window.open(url, "_blank", "noopener noreferrer");
-    }, i * 500);
+    });
   });
 }

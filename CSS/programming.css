@@ -160,7 +160,7 @@ body.fade-out {
     text-decoration: none;
     border: 2px solid #4CAF50;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: 0.75rem;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
