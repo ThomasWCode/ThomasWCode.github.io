@@ -34,6 +34,7 @@ body.fade-out {
     top: 0;
     left: 0;
     right: 0;
+    corner-radius: 0px, 0px, 20px, 20px;
     z-index: 1000;
     display: flex;
     justify-content: space-between;
