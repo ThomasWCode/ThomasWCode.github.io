@@ -156,7 +156,7 @@ body.fade-out {
     display: inline-block;
     padding: 0px 24px;
     background-color: transparent;
-    color: white;
+    color: #4CAF50;
     text-decoration: none;
     border: 2px solid #4CAF50;
     border-radius: 8px;
