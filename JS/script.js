@@ -133,9 +133,7 @@ function openLinks() {
     "https://techassistuk.vercel.app/"
   ];
 
-  links.forEach((url, i) => {
-    setTimeout(() => {
-        window.open(url, "_blank", "noopener noreferrer");
-    });
+  links.forEach(url => {
+    window.open(url, "_blank", "noopener noreferrer");
   });
 }
