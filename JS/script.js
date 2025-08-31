@@ -123,19 +123,17 @@ document.getElementById('contactForm').addEventListener('reset', function() {
 });
 
 //Open all projects in github
-const links = [
-  "https://github.com/ThomasWCode/SplitMate",
-  "https://github.com/ThomasWCode/Chrome-Dino",
-  "https://github.com/ThomasWCode/Game-Of-Life",
-  "https://github.com/ThomasWCode/Minesweeper",
-  "https://github.com/ThomasWCode/Bouncing-Ball-Physics-Simulation",
-  "https://techassistuk.vercel.app/"
-];
+function openLinks() {
+  const links = [
+    "https://github.com/ThomasWCode/SplitMate",
+    "https://github.com/ThomasWCode/Chrome-Dino",
+    "https://github.com/ThomasWCode/Game-Of-Life",
+    "https://github.com/ThomasWCode/Minesweeper",
+    "https://github.com/ThomasWCode/Bouncing-Ball-Physics-Simulation",
+    "https://techassistuk.vercel.app/"
+  ];
 
-document.getElementById("open-all").addEventListener("click", () => {
-  links.forEach((url, i) => {
-    setTimeout(() => {
-      window.open(url, "_blank", "noopener,noreferrer");
-    }, i * 200);
+  links.forEach(url => {
+    window.open(url, "_blank", "noopener noreferrer");
   });
-});
+}
