@@ -121,3 +121,19 @@ document.getElementById('contactForm').addEventListener('reset', function() {
     document.getElementById('formStatus').style.display = 'none';
     resetButton();
 });
+
+//Open all projects in github
+function openLinks() {
+  const links = [
+    "https://github.com/ThomasWCode/SplitMate",
+    "https://github.com/ThomasWCode/Chrome-Dino",
+    "https://github.com/ThomasWCode/Game-Of-Life",
+    "https://github.com/ThomasWCode/Minesweeper",
+    "https://github.com/ThomasWCode/Bouncing-Ball-Physics-Simulation",
+    "https://techassistuk.vercel.app/"
+  ];
+
+  links.forEach(url => {
+    window.open(url, "_blank", "noopener noreferrer");
+  });
+}
