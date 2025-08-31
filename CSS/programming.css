@@ -228,7 +228,9 @@ footer {
     }
 
     .hero {
-        padding: 3rem 1rem;
+       padding: 3rem 1rem;
+       padding-top: calc(3rem + 160px);
+       margin-top: -120px;
     }
 
     .hero h1 {
