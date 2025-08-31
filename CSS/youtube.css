@@ -139,6 +139,8 @@ body.fade-out {
 }
 
 footer {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     text-align: center;
     padding: 1rem;
     background-color: #4CAF50;
