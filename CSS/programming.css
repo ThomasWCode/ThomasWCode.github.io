@@ -229,7 +229,7 @@ footer {
 
     .hero {
        padding: 3rem 1rem;
-       padding-top: calc(3rem + 160px);
+       padding-top: calc(3rem + 120px);
        margin-top: -120px;
     }
 
