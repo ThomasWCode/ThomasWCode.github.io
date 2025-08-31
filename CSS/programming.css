@@ -84,6 +84,8 @@ body.fade-out {
     justify-content: center;
     text-align: center;
     padding: 5rem 2rem;
+    padding-top: calc(5rem + 80px);
+    margin-top: -80px;
     background: linear-gradient(to right, #4CAF50, #81C784);
     color: white;
 }
