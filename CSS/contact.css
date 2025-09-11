@@ -1,12 +1,3 @@
-.content-section {
-    padding: 3rem 2rem;
-    background-color: white;
-    margin: 2rem auto;
-    max-width: 900px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
 .contact-form {
     background: #f9f9f9;
     padding: 2rem;
@@ -159,13 +150,6 @@
 
     .thank-you-message h3 {
         font-size: 1.5rem;
-    }
-
-    .contact-btn {
-        padding: 0px 28px;
-        font-size: 1.1rem;
-        width: 100%;
-        text-align: center;
     }
 }
     

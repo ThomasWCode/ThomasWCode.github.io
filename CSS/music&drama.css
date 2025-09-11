@@ -1,42 +1,10 @@
-.about-section {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
 .about-text {
     flex: 2;
-}
-
-.wide-image {
-    width: 100%;
-    text-align: center;
-}
-
-.wide-image img {
-    width: 100%;
-    border-radius: 8px;
-}
-
-.content-section {
-    padding: 3rem 2rem;
-    background-color: white;
-    margin: 2rem auto;
-    max-width: 900px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 @media screen and (max-width: 768px) {
     .about-section {
         flex-direction: column;
         gap: 1rem;
-    }
-
-    .contact-btn {
-        padding: 0px 28px;
-        font-size: 1.1rem;
-        width: 100%;
-        text-align: center;
     }
 }

@@ -1,12 +1,3 @@
-.content-section {
-    padding: 3rem 2rem;
-    background-color: white;
-    margin: 2rem auto;
-    max-width: 900px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
 .project-with-image {
     display: flex;
     align-items: flex-start;
@@ -34,6 +25,10 @@
 }
 
 .open-all {
+    text-align: center;
+}
+
+.open-all-button {
     display: inline-block;
     padding: 0 24px;
     background: transparent;
@@ -48,16 +43,16 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.open-all:hover {
+.open-all-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.open-all:active {
+.open-all-button:active {
     transform: translateY(0);
 }
 
-.open-all:focus {
+.open-all-button:focus {
     outline: 2px solid #4CAF50;
     outline-offset: 2px;
 }
@@ -74,12 +69,5 @@
 
     .project-image img {
         max-width: 150px;
-    }
-
-    .contact-btn {
-        padding: 0px 28px;
-        font-size: 1.1rem;
-        width: 100%;
-        text-align: center;
     }
 }

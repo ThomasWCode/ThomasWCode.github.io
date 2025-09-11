@@ -1,25 +1,14 @@
-.about-section {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
 .about-text {
     flex: 2;
+}
+
+.about-image {
+    text-align: center;
 }
 
 .about-image img {
     max-width: 250px;
     border-radius: 8px;
-}
-
-.content-section {
-    padding: 3rem 2rem;
-    background-color: white;
-    margin: 2rem auto;
-    max-width: 900px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .youtube-vid {
@@ -56,12 +45,5 @@
         width: 100%;
         height: 250px;
         max-width: 400px;
-    }
-
-    .contact-btn {
-        padding: 0px 28px;
-        font-size: 1.1rem;
-        width: 100%;
-        text-align: center;
     }
 }

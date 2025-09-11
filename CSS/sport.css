@@ -1,19 +1,7 @@
 .content-section {
-    padding: 3rem 2rem;
-    background-color: white;
-    margin: 2rem auto;
-    max-width: 900px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     gap: 20px;
-}
-
-.about-section {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
 }
 
 .about-text {
@@ -33,15 +21,12 @@
     gap: 20px;
 }
 
-.wide-image {
-    width: 50%;
-    text-align: center;
+.caption-image .caption {
+    font-size: 16px;
 }
 
-.wide-image img,
-.full-width-image img {
-    width: 100%;
-    border-radius: 8px;
+.wide-image {
+    width: 50%;
 }
 
 @media screen and (max-width: 768px) {
@@ -63,12 +48,5 @@
 
     .wide-image {
         width: 100%;
-    }
-
-    .contact-btn {
-        padding: 0px 28px;
-        font-size: 1.1rem;
-        width: 100%;
-        text-align: center;
     }
 }
