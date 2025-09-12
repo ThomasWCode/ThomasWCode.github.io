@@ -28,7 +28,6 @@
     .about-section {
         flex-direction: column;
         gap: 1rem;
-        text-align: center;
     }
 
     .about-image img {

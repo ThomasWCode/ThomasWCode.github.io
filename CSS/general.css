@@ -211,6 +211,10 @@ footer {
         font-size: 1rem;
     }
 
+    ul {
+        padding-left: 1em;
+    }
+
     .page-container {
         padding-top: 120px;
     }
