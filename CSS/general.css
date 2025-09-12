@@ -119,30 +119,30 @@ body.fade-out {
 }
 
 .caption-image {
-  position: relative;
-  max-width: 100%;
-  overflow: hidden;
-  border-radius: 8px;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
 }
 
 .caption-image img {
-  display: block;
-  width: 100%;
-  height: auto;
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 .caption-image .caption {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 12px 16px;
-  box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.45);
-  color: #fff;
-  font-size: 20px;
-  text-align: center;
-  backdrop-filter: blur(4px);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    backdrop-filter: blur(4px);
 }
 
 .wide-image {
