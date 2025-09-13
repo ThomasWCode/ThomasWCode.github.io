@@ -1,0 +1,28 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.row .vertical {
+    width: 40%;
+}
+
+.row .wide {
+    width: 60%;
+}
+
+@media screen and (max-width: 768px) {
+    .row {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .row .vertical {
+        width: 100%;
+    }
+
+    .row .wide {
+        width: 100%;
+    }
+}
