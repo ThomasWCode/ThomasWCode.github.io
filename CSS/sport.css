@@ -4,6 +4,14 @@
     gap: 20px;
 }
 
+#squash-image {
+    margin-top: 30px;
+}
+
+.about-section {
+    align-items: start;
+}
+
 .about-text {
     flex: 1;
     display: flex;
@@ -33,6 +41,14 @@
     .about-section {
         flex-direction: column-reverse;
         gap: 1rem;
+    }
+
+    #squash-image {
+        margin-top: auto;
+    }
+
+    .about-section {
+        align-items: center;
     }
 
     .about-image img {
