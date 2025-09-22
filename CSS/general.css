@@ -220,6 +220,8 @@ footer {
     }
 
     .navbar {
+        position: absolute; /* Allow navbar to scroll with content */
+        top: 0;
         flex-direction: column;
         padding: 0.5rem 1rem;
         gap: 1rem;
@@ -238,6 +240,20 @@ footer {
         flex-wrap: wrap;
         gap: 1rem;
         justify-content: center;
+    }
+
+    .nav-links.sticky {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: #4CAF50;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        padding: 1rem;
+        margin: 0;
     }
 
     .nav-links a {
