@@ -6,7 +6,7 @@
     <title>Thomas White - Homepage</title>
     <link rel="icon" type="image/x-icon" href="Logo/logo.ico">
     <link rel="stylesheet" href="CSS/general.css"/>
-    <link rel="stylesheet" href="CSS/index.css"/>
+    <link rel="stylesheet" href="CSS/testimonials.css"/>
 </head>
 <body>
     <div class="page-container">
@@ -39,7 +39,10 @@
 
             <section id="testimonials" class="content-section">
                 <h2>Creating the Friend's of St John's Garden website</h2>
-                <p class="h3-text"></p>
+                <div class="quote">
+                    <div class="quote-text">I was honestly so impressed with Thomas after working on this project with him. Yes, his technical abilities were great, but actually, it was his strategic mindset and communications skills that made this a good project to work on with him.</div>
+                    <div class="quote-author">Analisa Plehn, St John's Garden</div>
+                </div>
                 <br>
                 <hr>
                 <br>
@@ -53,18 +56,5 @@
     </div>
 
     <script src="JS/script.js"></script>
-    <script>
-        async function checkIP() {
-        const allowed = ["192.168.1.67"];
-        const response = await fetch("https://api.ipify.org?format=json");
-        const data = await response.json();
-        
-        if (!allowed.includes(data.ip)) {
-            document.body.innerHTML = "This page is not yet available to the public - please wait for it to be published.<br><br>If you were expecting access and are still seeing this message, Please contact me.";
-        }
-        }
-
-        checkIP();
-    </script>
 </body>
 </html>
