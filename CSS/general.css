@@ -201,6 +201,92 @@ footer {
   font-size: 1.17em;
 }
 
+@media (min-width: 768px) {
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 2.5rem;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links a {
+        position: relative;
+        display: inline-block;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        padding: 4px 8px;
+    }
+
+    .nav-links a:not(.current)::before,
+    .nav-links a:not(.current)::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 2px solid transparent;
+        transition: all 0.35s ease;
+        pointer-events: none;
+        box-sizing: border-box;
+    }
+
+    .nav-links a:not(.current)::before {
+        top: -2px;
+        left: 0;
+    }
+
+    .nav-links a:not(.current)::after {
+        bottom: -2px;
+        right: 0;
+    }
+
+    .nav-links a:not(.current):hover::before {
+        width: 65%;
+        height: calc(100% + 4px);
+        border-top-color: white;
+        border-left-color: white;
+    }
+
+    .nav-links a:not(.current):hover::after {
+        width: 65%;
+        height: calc(100% + 4px);
+        border-bottom-color: white;
+        border-right-color: white;
+    }
+
+    .nav-links a.current::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 3px;
+        background-color: white;
+        transition: width 0.3s ease;
+    }
+
+    .nav-links a.current::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        background-color: white;
+    }
+
+    .nav-links a.current:hover::after {
+        width: 100%;
+    }
+
+    .nav-links a.current::before,
+    .nav-links a.current::after {
+        border: none;
+    }
+}
+
 @media (max-width: 480px) {
   .caption-image { width: 100%; }
   .caption-image .caption { font-size: 14px; padding: 10px; }
