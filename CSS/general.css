@@ -344,6 +344,7 @@ footer {
 
     .nav-links a {
         font-size: 0.9rem;
+        position: relative;
     }
 
     .hero {
