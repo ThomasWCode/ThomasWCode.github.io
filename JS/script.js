@@ -45,7 +45,7 @@ window.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             loader.classList.add("fade-out");
             setTimeout(() => loader.style.display = "none", 800);
-        }, gifDuration + 200);
+        }, gifDuration + 500);
     });
 });
 
