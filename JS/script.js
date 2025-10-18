@@ -17,6 +17,38 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+//LOADING SCREEN (WITH GIF)
+window.addEventListener("DOMContentLoaded", () => {
+    const loader = document.getElementById("loading-screen");
+    const gif = document.getElementById("loading-gif");
+
+    // Detect if coming from same domain
+    const ref = document.referrer;
+    const sameDomain = ref && ref.includes(window.location.hostname);
+
+    // If same site navigation, hide loader immediately
+    if (sameDomain) {
+        loader.style.display = "none";
+        return;
+    }
+
+    // Otherwise show loader normally
+    const newSrc = `/logo-animation-one-loop.gif?t=${Date.now()}`;
+    gif.style.opacity = "0";
+    gif.src = newSrc;
+
+    gif.addEventListener("load", () => {
+        gif.style.opacity = "1";
+
+        const gifDuration = 1530; // change to actual animation length (ms)
+
+        setTimeout(() => {
+            loader.classList.add("fade-out");
+            setTimeout(() => loader.style.display = "none", 800);
+        }, gifDuration + 200);
+    });
+});
+
 //STICKY NAV LINKS ON MOBILE
 document.addEventListener("DOMContentLoaded", () => {
   if (window.innerWidth <= 768) {
