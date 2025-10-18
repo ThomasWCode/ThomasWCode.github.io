@@ -331,8 +331,8 @@ footer {
     }
 
     #loading-gif {
-        max-width: 250px;
-        max-height: 250px;
+        max-width: 50px;
+        max-height: 50px;
         transition: opacity 0.2s ease;
     }
 
