@@ -331,8 +331,8 @@ footer {
     }
 
     #loading-gif {
-        max-width: 200px !important;
-        max-height: 200px !important;
+        max-width: 150px !important;
+        max-height: 150px !important;
     }
 
     .page-container {
