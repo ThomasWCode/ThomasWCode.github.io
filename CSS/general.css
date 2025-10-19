@@ -330,6 +330,12 @@ footer {
         padding-left: 1em;
     }
 
+    #loading-gif {
+        max-width: 400px;
+        max-height: 400px;
+        transition: opacity 0.2s ease;
+    }
+
     .page-container {
         padding-top: 120px;
     }
