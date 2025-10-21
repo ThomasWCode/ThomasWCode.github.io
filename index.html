@@ -99,5 +99,11 @@ permalink: /
     </div>
 
     <script src="/JS/script.js"></script>
+
+    <script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js");
+    }
+</script>
 </body>
 </html>
