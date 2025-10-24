@@ -1,0 +1,20 @@
+.gallery-grid {
+    column-count: 2; /* number of columns */
+    column-gap: 20px; /* space between columns */
+}
+
+.gallery-item {
+    break-inside: avoid; /* prevents splitting images between columns */
+    margin-bottom: 20px; /* space between items vertically */
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+.caption-image .caption {
+    font-size: 16px;
+}
