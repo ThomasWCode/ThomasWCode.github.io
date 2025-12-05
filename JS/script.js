@@ -209,3 +209,70 @@ function openLinks() {
     window.open(url, "_blank", "noopener noreferrer");
   });
 }
+
+//GALLERY EXPAND FUNCTIONALITY
+document.addEventListener("DOMContentLoaded", () => {
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const modal = document.getElementById('fullscreenModal');
+    const fullscreenImage = document.getElementById('fullscreenImage');
+    const fullscreenCaption = document.getElementById('fullscreenCaption');
+    const closeBtn = document.getElementById('closeModal');
+
+    if (!modal || !fullscreenImage || !fullscreenCaption || !closeBtn) {
+        return; // Gallery page not loaded
+    }
+
+    function openModal(img, caption) {
+        fullscreenImage.src = img.src;
+        fullscreenImage.alt = img.alt;
+        fullscreenCaption.textContent = caption;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    galleryItems.forEach(item => {
+        const img = item.querySelector('img');
+        const caption = item.querySelector('.caption');
+        const expandBtn = item.querySelector('.expand-btn');
+
+        if (!img) return;
+
+        const captionText = caption ? caption.textContent : '';
+
+        // Click on image to expand
+        img.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openModal(img, captionText);
+        });
+
+        // Click on expand button to expand
+        if (expandBtn) {
+            expandBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openModal(img, captionText);
+            });
+        }
+    });
+
+    // Close modal when close button is clicked
+    closeBtn.addEventListener('click', closeModal);
+
+    // Close modal when clicking outside the image
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+});

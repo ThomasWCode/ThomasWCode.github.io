@@ -67,56 +67,67 @@ permalink: /gallery/
                 <div class="gallery-grid">
                     <div class="gallery-item caption-image">
                         <img src="/Images/spartan-wall-climb.jpg" alt="Photo description">
+                        <button class="expand-btn">⛶ Expand</button>
                         <div class="caption">The wall climb in the spartan 10k race</div>
                     </div>
                     
                     <div class="gallery-item caption-image">
                         <img src="/Images/brighton-tri.jpeg" alt="Photo description">
+                        <button class="expand-btn">⛶ Expand</button>
                         <div class="caption">The last few hundred meters of the Brighton Triathlon</div>
                     </div>
                     
                     <div class="gallery-item caption-image">
                         <img src="/Images/lufthansa.jpg" alt="Photo description">
+                        <button class="expand-btn">⛶ Expand</button>
                         <div class="caption">A german aviation museum</div>
                     </div>
                     
                     <div class="gallery-item caption-image">
                         <img src="/Images/brandenburg-gate.jpg" alt="Photo description">
+                        <button class="expand-btn">⛶ Expand</button>
                         <div class="caption">Brandenburg Gate in Berlin</div>
                     </div>
                     
                     <div class="gallery-item caption-image">
                         <img src="/Images/peru-mountains.jpg" alt="Photo description">
+                        <button class="expand-btn">⛶ Expand</button>
                         <div class="caption">Mountains on the Machu Picchu trail</div>
                     </div>
                     
                     <div class="gallery-item caption-image">
                         <img src="/Images/peru-valley.jpg" alt="Photo description">
+                        <button class="expand-btn">⛶ Expand</button>
                         <div class="caption">A valley on the Machu Picchu trail</div>
                     </div>
                     
                     <div class="gallery-item caption-image">
                         <img src="/Images/family-machu-picchu.jpg" alt="Photo description">
+                        <button class="expand-btn">⛶ Expand</button>
                         <div class="caption">At Machu Picchu, at the end of the trail</div>
                     </div>
                     
                     <div class="gallery-item caption-image">
                         <img src="/Images/rain-machu-picchu-trail.jpg" alt="Photo description">
+                        <button class="expand-btn">⛶ Expand</button>
                         <div class="caption">A rainy day on the Machu Picchu trail</div>
                     </div>
                     
                     <div class="gallery-item caption-image">
                         <img src="/Images/sweden-kayaking.jpg" alt="Photo description">
+                        <button class="expand-btn">⛶ Expand</button>
                         <div class="caption">Kayaking in the Sweden Archipelago</div>
                     </div>
                     
                     <div class="gallery-item caption-image">
                         <img src="/Images/colosseum.jpg" alt="Photo description">
+                        <button class="expand-btn">⛶ Expand</button>
                         <div class="caption">Colosseum in Rome</div>
                     </div>
                     
                     <div class="gallery-item caption-image">
                         <img src="/Images/germany-hut-walk.jpg" alt="Photo description">
+                        <button class="expand-btn">⛶ Expand</button>
                         <div class="caption">A 3-day mountain walk around Lake Königssee, walking between mountain huts</div>
                     </div>
                 </div>
@@ -127,6 +138,15 @@ permalink: /gallery/
             <a href="/contact/"><button class="contact-btn"><h2>Contact Me</h2></button></a>
             <p class="h3-text">&copy; 2025 Thomas White. All rights reserved.</p>
         </footer>
+    </div>
+
+    <!-- Fullscreen Modal -->
+    <div class="fullscreen-modal" id="fullscreenModal">
+        <button class="close-btn" id="closeModal">&times;</button>
+        <div class="fullscreen-content">
+            <img id="fullscreenImage" src="" alt="">
+            <div class="fullscreen-caption" id="fullscreenCaption"></div>
+        </div>
     </div>
 
     <script src="/JS/script.js"></script>
