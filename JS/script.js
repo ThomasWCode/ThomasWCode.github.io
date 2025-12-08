@@ -20,34 +20,32 @@ document.addEventListener("DOMContentLoaded", () => {
 //LOADING SCREEN (WITH GIF)
 window.addEventListener("DOMContentLoaded", () => {
     const loader = document.getElementById("loading-screen");
-    const gif = document.getElementById("loading-gif");
+    const vid = document.getElementById("loading-gif");
 
-    // Detect if coming from same domain
     const ref = document.referrer;
     const sameDomain = ref && ref.includes(window.location.hostname);
 
-    // If same site navigation, hide loader immediately
     if (sameDomain) {
         loader.style.display = "none";
         return;
     }
 
-    // Otherwise show loader normally
-    const newSrc = `/logo-animation-one-loop.gif?t=${Date.now()}`;
-    gif.style.opacity = "0";
-    gif.src = newSrc;
+    const newSrc = `/logo-animation.webm?t=${Date.now()}`;
+    vid.style.opacity = "0";
+    vid.src = newSrc;
 
-    gif.addEventListener("load", () => {
-        gif.style.opacity = "1";
+    vid.addEventListener("loadeddata", () => {
+        vid.style.opacity = "1";
 
-        const gifDuration = 1530; // change to actual animation length (ms)
+        const animDuration = 1530;
 
         setTimeout(() => {
             loader.classList.add("fade-out");
             setTimeout(() => loader.style.display = "none", 800);
-        }, gifDuration + 500);
+        }, animDuration + 500);
     });
 });
+
 
 //STICKY NAV LINKS ON MOBILE
 document.addEventListener("DOMContentLoaded", () => {
