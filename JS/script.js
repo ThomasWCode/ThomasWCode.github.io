@@ -34,7 +34,13 @@ window.addEventListener("DOMContentLoaded", () => {
     vid.style.opacity = "0";
     vid.src = newSrc;
 
+    let fallback = setTimeout(() => {
+        loader.classList.add("fade-out");
+        setTimeout(() => loader.style.display = "none", 800);
+    }, 50);
+
     vid.addEventListener("loadeddata", () => {
+        clearTimeout(fallback);
         vid.style.opacity = "1";
 
         const animDuration = 1530;
@@ -45,7 +51,6 @@ window.addEventListener("DOMContentLoaded", () => {
         }, animDuration + 500);
     });
 });
-
 
 //STICKY NAV LINKS ON MOBILE
 document.addEventListener("DOMContentLoaded", () => {
