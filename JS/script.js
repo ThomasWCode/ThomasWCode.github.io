@@ -37,7 +37,7 @@ window.addEventListener("DOMContentLoaded", () => {
     let fallback = setTimeout(() => {
         loader.classList.add("fade-out");
         setTimeout(() => loader.style.display = "none", 800);
-    }, 50);
+    }, 2000);
 
     vid.addEventListener("loadeddata", () => {
         clearTimeout(fallback);
