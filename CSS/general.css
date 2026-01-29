@@ -258,7 +258,7 @@ footer {
   background-position-x: calc(100% + 15px), 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
     .nav-links {
         list-style: none;
         display: flex;
@@ -335,6 +335,111 @@ footer {
     .nav-links a.current::before,
     .nav-links a.current::after {
         border: none;
+    }
+}
+
+/* Responsive navbar scaling for laptop/tablet sizes */
+@media (min-width: 769px) and (max-width: 1200px) {
+    .navbar {
+        padding: 0rem 1.5rem;
+    }
+    
+    .logo-container .logo {
+        padding: 25px;
+        font-size: 16px;
+    }
+    
+    .logo-container img {
+        width: 75px;
+    }
+    
+    .nav-links {
+        gap: 1.8rem;
+    }
+    
+    .nav-links a {
+        font-size: 14px;
+        padding: 4px 6px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1050px) {
+    .navbar {
+        padding: 0rem 1rem;
+    }
+    
+    .logo-container .logo {
+        padding: 20px;
+        font-size: 15px;
+    }
+    
+    .logo-container img {
+        width: 70px;
+    }
+    
+    .nav-links {
+        gap: 1.3rem;
+    }
+    
+    .nav-links a {
+        font-size: 13px;
+        padding: 4px 4px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 950px) {
+    .navbar {
+        padding: 0rem 0.8rem;
+    }
+    
+    .logo-container .logo {
+        padding: 15px;
+        font-size: 14px;
+    }
+    
+    .logo-container img {
+        width: 65px;
+    }
+    
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .nav-links a {
+        font-size: 12px;
+        padding: 4px 3px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 880px) {
+    .navbar {
+        padding: 0rem 1.5rem 0rem 1rem;
+    }
+    
+    .logo-container .logo {
+        padding: 12px;
+        font-size: 13px;
+    }
+    
+    .logo-container img {
+        width: 60px;
+    }
+    
+    .nav-links {
+        gap: 0.7rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        max-width: 58%;
+    }
+    
+    .nav-links li {
+        margin-right: 0.3rem;
+    }
+    
+    .nav-links a {
+        font-size: 11px;
+        padding: 3px 5px;
+        white-space: nowrap;
     }
 }
 
