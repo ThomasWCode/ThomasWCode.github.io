@@ -90,7 +90,7 @@ body.fade-out {
 .logo-hover-video {
     margin: 0;
     padding: 0;
-    width: 105px;
+    width: 100px;
     height: auto;
     transition: opacity 0.3s ease;
 }
