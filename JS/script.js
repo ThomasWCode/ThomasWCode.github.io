@@ -17,6 +17,56 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+//LOGO HOVER ANIMATION
+document.addEventListener("DOMContentLoaded", () => {
+    const logoLink = document.querySelector('.logo-link');
+    const hoverVideo = document.querySelector('.logo-hover-video');
+    const staticImage = document.querySelector('.logo-static');
+    
+    if (logoLink && hoverVideo && staticImage) {
+        let isHovering = false;
+        let animationTimer = null;
+        const ANIMATION_DURATION = 1530; // ms
+        
+        logoLink.addEventListener('mouseenter', () => {
+            isHovering = true;
+            staticImage.style.opacity = '0';
+            hoverVideo.style.opacity = '1';
+            hoverVideo.currentTime = 0;
+            hoverVideo.play();
+            
+            // Clear any existing timer
+            if (animationTimer) {
+                clearTimeout(animationTimer);
+            }
+            
+            // Set timer to fade back to static image after animation completes
+            animationTimer = setTimeout(() => {
+                if (isHovering) {
+                    staticImage.style.opacity = '1';
+                    hoverVideo.style.opacity = '0';
+                    hoverVideo.pause();
+                }
+            }, ANIMATION_DURATION);
+        });
+        
+        logoLink.addEventListener('mouseleave', () => {
+            isHovering = false;
+            
+            // Clear the timer
+            if (animationTimer) {
+                clearTimeout(animationTimer);
+                animationTimer = null;
+            }
+            
+            hoverVideo.pause();
+            hoverVideo.currentTime = 0;
+            staticImage.style.opacity = '1';
+            hoverVideo.style.opacity = '0';
+        });
+    }
+});
+
 //LOADING SCREEN (WITH GIF)
 window.addEventListener("DOMContentLoaded", () => {
     const loader = document.getElementById("loading-screen");
