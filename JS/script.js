@@ -174,7 +174,7 @@ if (contactForm) {
                 throw new Error('Form submission failed');
             }
         } catch (error) {
-            showStatus('Sorry, there was a problem sending your message. Please try again.', 'error');
+            showStatus('Sorry, there was a problem sending your message. Please try again. Make sure you completed the CAPTCHA above.', 'error');
             resetButton();
         }
     });
