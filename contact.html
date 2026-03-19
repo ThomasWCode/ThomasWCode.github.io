@@ -127,6 +127,17 @@ permalink: /contact/
                         <p>Your message has been sent successfully. I'll get back to you as soon as possible.</p>
                         <button id="sendAnotherBtn" class="btn btn-primary">Send Another Message</button>
                     </div>
+
+                    <div id="spamBlockedMessage" class="spam-blocked-message">
+                        <div class="spam-blocked-icon">🚫</div>
+                        <h3>Submission Blocked</h3>
+                        <p class="spam-blocked-reason" id="spamReason"></p>
+                        <div class="spam-blocked-fix">
+                            <p><strong>Not spam? Here's what you can change:</strong></p>
+                            <ul id="spamFixes"></ul>
+                        </div>
+                        <button id="tryAgainBtn" class="btn btn-primary">Try Again</button>
+                    </div>
                 </div>
             </section>
         </main>

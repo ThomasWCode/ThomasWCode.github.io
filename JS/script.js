@@ -139,7 +139,15 @@ if (contactForm) {
             resetButton();
             return;
         }
-        
+
+        const subject = document.getElementById('subject').value;
+        const spamResult = checkSpam(email, subject);
+        if (spamResult.blocked) {
+            showSpamBlocked(spamResult.reason, spamResult.fix);
+            resetButton();
+            return;
+        }
+
         try {
             const formData = new FormData(form);
             const response = await fetch(form.action, {
@@ -192,6 +200,25 @@ if (sendAnotherBtn) {
     });
 }
 
+const tryAgainBtn = document.getElementById('tryAgainBtn');
+if (tryAgainBtn) {
+    tryAgainBtn.addEventListener('click', function() {
+        const form = document.getElementById('contactForm');
+        const spamBlockedMessage = document.getElementById('spamBlockedMessage');
+
+        spamBlockedMessage.classList.remove('show');
+
+        setTimeout(() => {
+            spamBlockedMessage.style.display = 'none';
+            form.style.display = 'block';
+            form.classList.remove('form-fade-out');
+            resetButton();
+            document.getElementById('formStatus').style.display = 'none';
+        }, 500);
+    });
+}
+
+
 function showStatus(message, type) {
     const formStatus = document.getElementById('formStatus');
     if (formStatus) {
@@ -205,6 +232,52 @@ function showStatus(message, type) {
             }, 5000);
         }
     }
+}
+
+function checkSpam(email, subject) {
+    if (email.trim().toLowerCase() === 'sales@thomaswhite.me') {
+        return {
+            blocked: true,
+            reason: 'The email address <strong>sales@thomaswhite.me</strong> is a known automated spam source.',
+            fix: [
+                'Use your own personal or business email address.',
+                'If you genuinely work at thomaswhite.me, get in touch another way.'
+            ]
+        };
+    }
+    if (subject && /^\d{6,}$/.test(subject.trim())) {
+        return {
+            blocked: true,
+            reason: 'Your subject line contains only a long number, which matches a common spam pattern.',
+            fix: [
+                'Write a short description of why you\'re getting in touch — e.g. "Question about your projects".',
+                'Or leave the subject field blank entirely.'
+            ]
+        };
+    }
+    return { blocked: false };
+}
+
+function showSpamBlocked(reason, fixes) {
+    const form = document.getElementById('contactForm');
+    const spamBlockedMessage = document.getElementById('spamBlockedMessage');
+    if (!spamBlockedMessage) return;
+
+    document.getElementById('spamReason').innerHTML = reason;
+    const fixList = document.getElementById('spamFixes');
+    fixList.innerHTML = '';
+    fixes.forEach(fix => {
+        const li = document.createElement('li');
+        li.textContent = fix;
+        fixList.appendChild(li);
+    });
+
+    form.classList.add('form-fade-out');
+    setTimeout(() => {
+        form.style.display = 'none';
+        spamBlockedMessage.style.display = 'block';
+        setTimeout(() => spamBlockedMessage.classList.add('show'), 50);
+    }, 500);
 }
 
 function resetButton() {

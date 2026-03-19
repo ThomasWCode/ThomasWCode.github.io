@@ -125,6 +125,82 @@
     transition: opacity 0.5s ease-in-out;
 }
 
+.spam-blocked-message {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.spam-blocked-message.show {
+    opacity: 1;
+}
+
+.spam-blocked-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.spam-blocked-message h3 {
+    color: #c0392b;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.spam-blocked-reason {
+    font-size: 1rem;
+    color: #555;
+    background-color: #fdecea;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    padding: 0.8rem 1.2rem;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.spam-blocked-fix {
+    background-color: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 6px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    text-align: left;
+    display: inline-block;
+    min-width: 60%;
+}
+
+.spam-blocked-fix p {
+    margin: 0 0 0.5rem 0;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.spam-blocked-fix ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: #444;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+@media screen and (max-width: 768px) {
+    .spam-blocked-message {
+        padding: 2rem 1rem;
+    }
+
+    .spam-blocked-message h3 {
+        font-size: 1.4rem;
+    }
+
+    .spam-blocked-fix {
+        min-width: unset;
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .contact-form {
         padding: 1.5rem;
@@ -152,4 +228,3 @@
         font-size: 1.5rem;
     }
 }
-    
