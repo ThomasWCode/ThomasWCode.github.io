@@ -241,7 +241,7 @@ function checkSpam(email, subject) {
             reason: 'The email address <strong>sales@thomaswhite.me</strong> is a known automated spam source.',
             fix: [
                 'Use your own personal or business email address.',
-                'If you genuinely work at thomaswhite.me, get in touch another way.'
+                'If you do not want to put an email, type test@gmail.com. However, I will not be able to reply to you.'
             ]
         };
     }
@@ -251,7 +251,7 @@ function checkSpam(email, subject) {
             reason: 'Your subject line contains only a long number, which matches a common spam pattern.',
             fix: [
                 'Write a short description of why you\'re getting in touch — e.g. "Question about your projects".',
-                'Or leave the subject field blank entirely.'
+                'Or just put your name.'
             ]
         };
     }
