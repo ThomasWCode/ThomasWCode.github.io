@@ -12,10 +12,10 @@ permalink: /
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <link rel="stylesheet" href="/CSS/general.css"/>
-    <link rel="stylesheet" href="/CSS/index.css"/>
+    <link rel="preload" rel="stylesheet" href="/CSS/general.css"/>
+    <link rel="preload" rel="stylesheet" href="/CSS/index.css"/>
 
-    <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/50db71ebcc00123857cce656/script.js"></script>
+    <script async id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/50db71ebcc00123857cce656/script.js"></script>
 
     <script type="application/ld+json">
     {
@@ -50,9 +50,9 @@ permalink: /
             <nav class="navbar">
                 <div class="logo-container">
                     <a href="/" class="logo-link">
-                        <img src="/logo-text.png" class="logo-static">
+                        <img rel="preload" src="/logo-text.png" class="logo-static">
                         <video class="logo-hover-video" muted playsinline>
-                            <source src="/logo-animation.webm" type="video/webm">
+                            <source rel="preload" src="/logo-animation.webm" type="video/webm">
                         </video>
                     </a>
                     <strong><a href="/" style="text-decoration: none; color: white;"><div class="logo">Thomas White - Homepage</div></a></strong>
@@ -81,7 +81,7 @@ permalink: /
 
             <section id="about" class="content-section about-section">
                 <div class="about-image">
-                    <img src="/Images/thomasw.png" width="200px" alt="Picture of me">
+                    <img fetchpriority="high" src="/Images/thomasw.png" width="200px" alt="Picture of me">
                 </div>
                 <div class="about-text">
                     <h2>About Me - An Overview</h2>
@@ -102,6 +102,6 @@ permalink: /
         </footer>
     </div>
 
-    <script src="/JS/script.js"></script>
+    <script rel="preload" src="/JS/script.js"></script>
 </body>
 </html>

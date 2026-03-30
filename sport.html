@@ -12,10 +12,10 @@ permalink: /sport/
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <link rel="stylesheet" href="/CSS/general.css"/>
-    <link rel="stylesheet" href="/CSS/sport.css"/>
+    <link rel="preload" rel="stylesheet" href="/CSS/general.css"/>
+    <link rel="preload" rel="stylesheet" href="/CSS/sport.css"/>
 
-    <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/50db71ebcc00123857cce656/script.js"></script>
+    <script async id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/50db71ebcc00123857cce656/script.js"></script>
 
     <script type="application/ld+json">
     {
@@ -50,9 +50,9 @@ permalink: /sport/
             <nav class="navbar">
                 <div class="logo-container">
                     <a href="/" class="logo-link">
-                        <img src="/logo-text.png" class="logo-static">
+                        <img rel="preload" src="/logo-text.png" class="logo-static">
                         <video class="logo-hover-video" muted playsinline>
-                            <source src="/logo-animation.webm" type="video/webm">
+                            <source rel="preload" src="/logo-animation.webm" type="video/webm">
                         </video>
                     </a>
                     <strong><a href="/" style="text-decoration: none; color: white;"><div class="logo">Thomas White - Homepage</div></a></strong>
@@ -92,7 +92,7 @@ permalink: /sport/
                 <div class="about-section">
                     <div class="vertical-caption-image">
                         <div class="caption-image about-image">
-                            <img src="/Images/spartan-monkey-bars.jpg" alt="Me in a spartan race, doing monkey bars">
+                            <img loading="lazy" src="/Images/spartan-monkey-bars.jpg" alt="Me in a spartan race, doing monkey bars">
                             <div class="caption">The last obstacle in the Spartan: the monkey bars</div>
                         </div>
                     </div>
@@ -104,11 +104,11 @@ permalink: /sport/
                 </div>
                 <div class="row">
                     <div class="caption-image wide-image">
-                        <img src="/Images/spartan-barbed-wire-crawl.jpg" alt="Me in a spartan race, looking up from a barbed wire crawl">
+                        <img loading="lazy" src="/Images/spartan-barbed-wire-crawl.jpg" alt="Me in a spartan race, looking up from a barbed wire crawl">
                         <div class="caption">The barbed wire crawl in both the spartan 5k and 10k race</div>
                     </div>
                     <div class="caption-image wide-image">
-                        <img src="/Images/spartan-wall-climb.jpg" alt="Me in a spartan race, climbing a steep wall">
+                        <img loading="lazy" src="/Images/spartan-wall-climb.jpg" alt="Me in a spartan race, climbing a steep wall">
                         <div class="caption">The wall climb in the spartan 10k race</div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@ permalink: /sport/
                 <div class="about-section">
                     <div class="vertical-caption-image">
                         <div id="brighton-tri" class="caption-image about-image">
-                            <img src="/Images/brighton-tri.jpeg" alt="Me in a spartan race, doing monkey bars">
+                            <img loading="lazy" src="/Images/brighton-tri.jpeg" alt="Me in a spartan race, doing monkey bars">
                             <div class="caption">The last few hundred meters of the Brighton Triathlon</div>
                         </div>
                     </div>
@@ -154,6 +154,6 @@ permalink: /sport/
         </footer>
     </div>
 
-    <script src="/JS/script.js"></script>
+    <script rel="preload" src="/JS/script.js"></script>
 </body>
 </html>
