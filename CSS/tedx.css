@@ -9,6 +9,7 @@
 
 .tedx-vid {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding-bottom: 30px;
@@ -24,6 +25,7 @@
 .row {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     gap: 20px;
 }
 
