@@ -168,8 +168,16 @@
 }
 
 .track-info h3 {
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.25rem 0;
     color: #333;
+}
+
+.track-release {
+    margin: 0 0 0.5rem 0;
+    color: #4CAF50;
+    font-size: 0.9rem;
+    font-weight: bold;
+    font-style: italic;
 }
 
 .track-description {
