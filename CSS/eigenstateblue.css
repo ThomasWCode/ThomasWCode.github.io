@@ -215,7 +215,9 @@
     .social-link {
         width: 100%;
         max-width: 300px;
+        min-width: 0;
         justify-content: center;
+        box-sizing: border-box;
     }
 
     .track-item {
