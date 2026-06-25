@@ -210,13 +210,11 @@
     .social-links {
         flex-direction: column;
         align-items: center;
-        padding: 0 1rem;
     }
 
     .social-link {
         width: 100%;
         max-width: 300px;
-        min-width: 0;
         justify-content: center;
     }
 
