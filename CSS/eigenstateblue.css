@@ -149,7 +149,12 @@
 
 .track-item:hover {
     background-color: #f0f0f0;
-    transform: translateX(5px);
+}
+
+@media screen and (min-width: 769px) {
+    .track-item:hover {
+        transform: translateX(5px);
+    }
 }
 
 .track-cover {
@@ -307,4 +312,20 @@
 .ai-tooltip-trigger:hover .ai-tooltip {
     visibility: visible;
     opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .ai-tooltip {
+        left: auto;
+        right: 0;
+        transform: none;
+        white-space: normal;
+        max-width: 200px;
+    }
+
+    .ai-tooltip::after {
+        left: auto;
+        right: 20px;
+        transform: none;
+    }
 }
