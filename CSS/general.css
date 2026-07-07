@@ -108,7 +108,11 @@ body.fade-out {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+}
+
+.logo-hover-video {
+    opacity: 0;
+    transform: translate(-43px, -25px);
 }
 
 .logo-container img {
@@ -116,6 +120,10 @@ body.fade-out {
     padding: 0;
     width: 90px;
     height: auto;
+}
+
+.logo-container video.logo-hover-video {
+    width: 84px;
 }
 
 .logo-container .logo {
