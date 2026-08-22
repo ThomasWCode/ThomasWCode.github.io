@@ -1,73 +1,88 @@
-.project-with-image {
-    display: flex;
-    align-items: flex-start;
-    gap: 2rem;
+.programming-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.7fr);
+    gap: clamp(2rem, 6vw, 5rem);
 }
 
-.project-text {
-    flex: 6;
-    font-size: 17px;
+.programming-facts {
+    padding: clamp(1.5rem, 4vw, 2.3rem);
+    background: var(--sage-light);
 }
 
-.project-image {
-    flex: 1;
+.programming-facts ul {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-.project-image img {
-    max-width: 200px;
-    height: auto;
-    border-radius: 8px;
-    border: 3px solid black;
+.programming-facts li {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted-ink);
 }
 
-.no-border-image {
-    border: none !important; 
+.programming-facts li:last-child {
+    padding-bottom: 0;
+    border: 0;
 }
 
-.open-all {
-    text-align: center;
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
 }
 
-.open-all-button {
-    display: inline-block;
-    padding: 0 24px;
-    background: transparent;
-    color: #4CAF50;
-    text-decoration: none;
-    border: 2px solid #4CAF50;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.project-card {
+    display: grid;
+    grid-template-columns: 155px minmax(0, 1fr);
+    gap: 1.35rem;
+    padding: 1.35rem;
 }
 
-.open-all-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+.project-card-image {
+    align-self: start;
+    overflow: hidden;
+    aspect-ratio: 1;
+    border-radius: var(--radius-small);
+    background: var(--sage-light);
 }
 
-.open-all-button:active {
-    transform: translateY(0);
+.project-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
-.open-all-button:focus {
-    outline: 2px solid #4CAF50;
-    outline-offset: 2px;
+.project-card h3 {
+    margin-bottom: 0.65rem;
+    font-size: 1.45rem;
 }
 
-@media screen and (max-width: 768px) {
-    .project-with-image {
-        flex-direction: column;
-        gap: 1rem;
+.project-card p {
+    color: var(--muted-ink);
+    font-size: 0.92rem;
+    line-height: 1.58;
+}
+
+.project-card .link-arrow {
+    margin-top: auto;
+}
+
+@media (max-width: 768px) {
+    .programming-intro,
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-card {
+        grid-template-columns: 1fr;
     }
 
-    .project-image {
-        text-align: center;
-    }
-
-    .project-image img {
-        max-width: 150px;
+    .project-card-image {
+        width: 140px;
     }
 }

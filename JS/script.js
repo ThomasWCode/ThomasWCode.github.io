@@ -1,397 +1,462 @@
-//FADE IN/OUT
-window.addEventListener("pageshow", () => {
-  document.body.style.opacity = 1;
-});
-
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", e => {
-      if (link.hostname === window.location.hostname) {
-        e.preventDefault();
-        document.body.style.opacity = 0;
-        setTimeout(() => {
-          window.location = link.href;
-        }, 500);
-      }
-    });
-  });
+    initialiseAnalytics();
+    initialiseSkipLink();
+    initialiseLogoAnimation();
+    initialiseNavigation();
+    initialiseCurrentYear();
+    initialiseContactForm();
+    initialiseGallery();
+    initialiseYouTubeFacades();
+    initialiseTrackAudio();
+    initialiseInfoToggles();
 });
 
-//LOGO HOVER ANIMATION
-document.addEventListener("DOMContentLoaded", () => {
-    const logoLink = document.querySelector('.logo-link');
-    const hoverVideo = document.querySelector('.logo-hover-video');
-    const staticImage = document.querySelector('.logo-static');
-    
-    if (logoLink && hoverVideo && staticImage) {
-        logoLink.addEventListener('mouseenter', () => {
-            staticImage.style.opacity = '0';
-            hoverVideo.style.opacity = '1';
-            hoverVideo.currentTime = 0;
-            hoverVideo.play();
-        });
-        
-        logoLink.addEventListener('mouseleave', () => {
-            // Fade out the video first
-            hoverVideo.style.opacity = '0';
-            staticImage.style.opacity = '1';
-            
-            // Wait for the fade transition to complete, then reset video
-            setTimeout(() => {
-                hoverVideo.pause();
-                hoverVideo.currentTime = 0;
-            }, 300); // Match the CSS transition duration
-        });
-    }
-});
+function initialiseAnalytics() {
+    let loaded = false;
 
-//LOADING SCREEN (WITH GIF)
-window.addEventListener("DOMContentLoaded", () => {
-    const loader = document.getElementById("loading-screen");
-    const vid = document.getElementById("loading-gif");
-
-    const ref = document.referrer;
-    const sameDomain = ref && ref.includes(window.location.hostname);
-
-    if (sameDomain) {
-        loader.style.display = "none";
-        return;
-    }
-
-    const newSrc = `/logo-animation.webm?t=${Date.now()}`;
-    vid.style.opacity = "0";
-    vid.src = newSrc;
-
-    let fallback = setTimeout(() => {
-        loader.classList.add("fade-out");
-        setTimeout(() => loader.style.display = "none", 800);
-    }, 2000);
-
-    vid.addEventListener("loadeddata", () => {
-        clearTimeout(fallback);
-        vid.style.opacity = "1";
-
-        const animDuration = 1530;
-
-        setTimeout(() => {
-            loader.classList.add("fade-out");
-            setTimeout(() => loader.style.display = "none", 800);
-        }, animDuration + 500);
-    });
-});
-
-//STICKY NAV LINKS ON MOBILE
-document.addEventListener("DOMContentLoaded", () => {
-  if (window.innerWidth <= 768) {
-    const navbar = document.querySelector('.navbar');
-    const navLinks = document.querySelector('.nav-links');
-    
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const navLinksRect = navLinks.getBoundingClientRect();
-      
-      // When nav-links reach the top of the viewport, make them sticky
-      if (navLinksRect.top <= 0 && !navLinks.classList.contains('sticky')) {
-        navLinks.classList.add('sticky');
-      } 
-      // When scrolling back up, remove sticky when we're back to the original position
-      else if (scrollTop <= navbar.offsetTop && navLinks.classList.contains('sticky')) {
-        navLinks.classList.remove('sticky');
-      }
-    });
-  }
-});
-
-//CONTACT FORM
-if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-    const subjectField = document.getElementById("subject");
-    if (subjectField) {
-        subjectField.placeholder = "Tell me something interesting!";
-    }
-}
-
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const formStatus = document.getElementById('formStatus');
-        const submitBtn = document.querySelector('.btn-primary');
-        const form = document.getElementById('contactForm');
-        const thankYouMessage = document.getElementById('thankYouMessage');
-        
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
-        
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
-        
-        if (!name || !email || !message) {
-            showStatus('Please fill in all required fields.', 'error');
-            resetButton();
-            return;
-        }
-        
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            showStatus('Please enter a valid email address.', 'error');
-            resetButton();
+    function loadAnalytics() {
+        if (loaded) {
             return;
         }
 
-        const subject = document.getElementById('subject').value;
-        const spamResult = checkSpam(email, subject);
-        if (spamResult.blocked) {
-            showSpamBlocked(spamResult.reason, spamResult.fix);
-            resetButton();
+        loaded = true;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () {
+            window.dataLayer.push(arguments);
+        };
+        window.gtag("js", new Date());
+        window.gtag("config", "G-DZEP97F05S");
+
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-DZEP97F05S";
+        script.dataset.cookieyes = "cookieyes-analytics";
+        document.head.appendChild(script);
+    }
+
+    function consentAllowsAnalytics(detail) {
+        return detail?.categories?.analytics === true || detail?.accepted?.includes("analytics");
+    }
+
+    function checkStoredConsent() {
+        if (typeof window.getCkyConsent !== "function") {
             return;
         }
 
         try {
-            const formData = new FormData(form);
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-            
-            if (response.ok) {
-                form.classList.add('form-fade-out');
-                
-                setTimeout(() => {
-                    form.style.display = 'none';
-                    thankYouMessage.style.display = 'block';
-                    
-                    setTimeout(() => {
-                        thankYouMessage.classList.add('show');
-                    }, 50);
-                }, 500);
-                
-            } else {
-                throw new Error('Form submission failed');
+            if (consentAllowsAnalytics(window.getCkyConsent())) {
+                loadAnalytics();
             }
-        } catch (error) {
-            showStatus('Sorry, there was a problem sending your message. Please try again. Make sure you completed the CAPTCHA above.', 'error');
-            resetButton();
+        } catch {}
+    }
+
+    document.addEventListener("cookieyes_banner_load", event => {
+        if (consentAllowsAnalytics(event.detail)) {
+            loadAnalytics();
         }
     });
+    document.addEventListener("cookieyes_banner_loaded", checkStoredConsent);
+    document.addEventListener("cookieyes_consent_update", event => {
+        if (consentAllowsAnalytics(event.detail)) {
+            loadAnalytics();
+        }
+    });
+    checkStoredConsent();
 }
 
-const sendAnotherBtn = document.getElementById('sendAnotherBtn');
-if (sendAnotherBtn) {
-    sendAnotherBtn.addEventListener('click', function() {
-        const form = document.getElementById('contactForm');
-        const thankYouMessage = document.getElementById('thankYouMessage');
-        
-        thankYouMessage.classList.remove('show');
-        
-        setTimeout(() => {
-            thankYouMessage.style.display = 'none';
-            form.style.display = 'block';
-            form.classList.remove('form-fade-out');
-            form.reset();
-            resetButton();
-            
-            document.getElementById('formStatus').style.display = 'none';
-        }, 500);
+function initialiseSkipLink() {
+    const skipLink = document.querySelector(".skip-link");
+    const mainContent = document.getElementById("main-content");
+
+    if (!skipLink || !mainContent) {
+        return;
+    }
+
+    mainContent.setAttribute("tabindex", "-1");
+    skipLink.addEventListener("click", () => {
+        window.requestAnimationFrame(() => mainContent.focus());
     });
 }
 
-const tryAgainBtn = document.getElementById('tryAgainBtn');
-if (tryAgainBtn) {
-    tryAgainBtn.addEventListener('click', function() {
-        const form = document.getElementById('contactForm');
-        const spamBlockedMessage = document.getElementById('spamBlockedMessage');
+function initialiseLogoAnimation() {
+    const logoLink = document.querySelector(".logo-link");
+    const hoverVideo = document.querySelector(".logo-hover-video");
+    const staticImage = document.querySelector(".logo-static");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-        spamBlockedMessage.classList.remove('show');
+    if (!logoLink || !hoverVideo || !staticImage || reduceMotion.matches) {
+        return;
+    }
 
-        setTimeout(() => {
-            spamBlockedMessage.style.display = 'none';
-            form.style.display = 'block';
-            form.classList.remove('form-fade-out');
-            resetButton();
-            document.getElementById('formStatus').style.display = 'none';
-        }, 500);
+    logoLink.addEventListener("mouseenter", () => {
+        staticImage.style.opacity = "0";
+        hoverVideo.style.opacity = "1";
+        hoverVideo.currentTime = 0;
+        hoverVideo.play().catch(() => {});
+    });
+
+    logoLink.addEventListener("mouseleave", () => {
+        hoverVideo.style.opacity = "0";
+        staticImage.style.opacity = "1";
+
+        window.setTimeout(() => {
+            hoverVideo.pause();
+            hoverVideo.currentTime = 0;
+        }, 220);
     });
 }
 
+function initialiseNavigation() {
+    const navToggle = document.querySelector(".nav-toggle");
+    const navPanel = document.querySelector(".nav-panel");
+    const moreToggle = document.querySelector(".more-toggle");
+    const moreMenu = document.querySelector(".more-menu");
+    const desktopQuery = window.matchMedia("(min-width: 1025px)");
 
-function showStatus(message, type) {
-    const formStatus = document.getElementById('formStatus');
-    if (formStatus) {
+    if (!navToggle || !navPanel || !moreToggle || !moreMenu) {
+        return;
+    }
+
+    function setNavState(open) {
+        navToggle.setAttribute("aria-expanded", String(open));
+        navToggle.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+        navPanel.hidden = !open;
+    }
+
+    function setMoreState(open) {
+        moreToggle.setAttribute("aria-expanded", String(open));
+        moreMenu.hidden = !open;
+    }
+
+    function syncNavigation() {
+        if (desktopQuery.matches) {
+            navPanel.hidden = false;
+            setMoreState(false);
+        } else {
+            setNavState(false);
+            moreMenu.hidden = false;
+        }
+    }
+
+    navToggle.addEventListener("click", () => {
+        setNavState(navToggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    moreToggle.addEventListener("click", () => {
+        setMoreState(moreToggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    document.addEventListener("click", event => {
+        if (desktopQuery.matches && !event.target.closest(".nav-more")) {
+            setMoreState(false);
+        }
+    });
+
+    document.addEventListener("keydown", event => {
+        if (event.key !== "Escape") {
+            return;
+        }
+
+        if (desktopQuery.matches && moreToggle.getAttribute("aria-expanded") === "true") {
+            setMoreState(false);
+            moreToggle.focus();
+        } else if (!desktopQuery.matches && navToggle.getAttribute("aria-expanded") === "true") {
+            setNavState(false);
+            navToggle.focus();
+        }
+    });
+
+    navPanel.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+            if (!desktopQuery.matches) {
+                setNavState(false);
+            }
+        });
+    });
+
+    desktopQuery.addEventListener("change", syncNavigation);
+    syncNavigation();
+}
+
+function initialiseCurrentYear() {
+    document.querySelectorAll("[data-current-year]").forEach(element => {
+        element.textContent = String(new Date().getFullYear());
+    });
+}
+
+function initialiseContactForm() {
+    const form = document.getElementById("contactForm");
+
+    if (!form) {
+        return;
+    }
+
+    const submitButton = form.querySelector("button[type='submit']");
+    const formStatus = document.getElementById("formStatus");
+    const thankYouMessage = document.getElementById("thankYouMessage");
+    const spamBlockedMessage = document.getElementById("spamBlockedMessage");
+    const sendAnotherButton = document.getElementById("sendAnotherBtn");
+    const tryAgainButton = document.getElementById("tryAgainBtn");
+
+    function resetButton() {
+        if (!submitButton) {
+            return;
+        }
+
+        submitButton.textContent = "Send message";
+        submitButton.disabled = false;
+        submitButton.removeAttribute("aria-busy");
+    }
+
+    function showStatus(message, type) {
+        if (!formStatus) {
+            return;
+        }
+
         formStatus.textContent = message;
         formStatus.className = `form-status ${type}`;
-        formStatus.style.display = 'block';
-        
-        if (type === 'success') {
-            setTimeout(() => {
-                formStatus.style.display = 'none';
-            }, 5000);
+        formStatus.hidden = false;
+        formStatus.focus();
+    }
+
+    function checkSpam(email, subject) {
+        if (email.trim().toLowerCase() === "sales@thomaswhite.me") {
+            return {
+                blocked: true,
+                reason: "That email address is a known automated spam source.",
+                fixes: [
+                    "Use your own personal or business email address.",
+                    "If you do not want to provide an email, you can use test@gmail.com, but I will not be able to reply."
+                ]
+            };
         }
-    }
-}
 
-function checkSpam(email, subject) {
-    if (email.trim().toLowerCase() === 'sales@thomaswhite.me') {
-        return {
-            blocked: true,
-            reason: 'The email address <strong>sales@thomaswhite.me</strong> is a known automated spam source.',
-            fix: [
-                'Use your own personal or business email address.',
-                'If you do not want to put an email, type test@gmail.com. However, I will not be able to reply to you.'
-            ]
-        };
-    }
-    if (subject && /^\d{6,}$/.test(subject.trim())) {
-        return {
-            blocked: true,
-            reason: 'Your subject line contains only a long number, which matches a common spam pattern.',
-            fix: [
-                'Write a short description of why you\'re getting in touch — e.g. "Question about your projects".',
-                'Or just put your name.'
-            ]
-        };
-    }
-    return { blocked: false };
-}
-
-function showSpamBlocked(reason, fixes) {
-    const form = document.getElementById('contactForm');
-    const spamBlockedMessage = document.getElementById('spamBlockedMessage');
-    if (!spamBlockedMessage) return;
-
-    document.getElementById('spamReason').innerHTML = reason;
-    const fixList = document.getElementById('spamFixes');
-    fixList.innerHTML = '';
-    fixes.forEach(fix => {
-        const li = document.createElement('li');
-        li.textContent = fix;
-        fixList.appendChild(li);
-    });
-
-    form.classList.add('form-fade-out');
-    setTimeout(() => {
-        form.style.display = 'none';
-        spamBlockedMessage.style.display = 'block';
-        setTimeout(() => spamBlockedMessage.classList.add('show'), 50);
-    }, 500);
-}
-
-function resetButton() {
-    const submitBtn = document.querySelector('.btn-primary');
-    if (submitBtn) {
-        submitBtn.textContent = 'Send Message';
-        submitBtn.disabled = false;
-    }
-}
-
-if (contactForm) {
-    contactForm.addEventListener('reset', function() {
-        const formStatus = document.getElementById('formStatus');
-        if (formStatus) {
-            formStatus.style.display = 'none';
+        if (subject && /^\d{6,}$/.test(subject.trim())) {
+            return {
+                blocked: true,
+                reason: "The subject contains only a long number, which matches a common spam pattern.",
+                fixes: [
+                    "Write a short description of why you are getting in touch.",
+                    "Alternatively, use your name as the subject."
+                ]
+            };
         }
-        resetButton();
-    });
-}
 
-//Open all projects in github
-function openLinks() {
-  const links = [
-    "https://techassistuk.vercel.app/",
-    "https://github.com/ThomasWCode/SplitMate",
-    "https://github.com/ThomasWCode/Chrome-Dino",
-    "https://github.com/ThomasWCode/Game-Of-Life",
-    "https://github.com/ThomasWCode/Minesweeper",
-    "https://github.com/ThomasWCode/Bouncing-Ball-Physics-Simulation",
-  ];
-
-  links.forEach(url => {
-    window.open(url, "_blank", "noopener noreferrer");
-  });
-}
-
-//GALLERY EXPAND FUNCTIONALITY
-document.addEventListener("DOMContentLoaded", () => {
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    const modal = document.getElementById('fullscreenModal');
-    const fullscreenImage = document.getElementById('fullscreenImage');
-    const fullscreenCaption = document.getElementById('fullscreenCaption');
-    const closeBtn = document.getElementById('closeModal');
-
-    if (!modal || !fullscreenImage || !fullscreenCaption || !closeBtn) {
-        return; // Gallery page not loaded
+        return { blocked: false };
     }
 
-    function openModal(img, caption) {
-        fullscreenImage.src = img.src;
-        fullscreenImage.alt = img.alt;
-        fullscreenCaption.textContent = caption;
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
-    }
+    function showSpamBlocked(result) {
+        const reason = document.getElementById("spamReason");
+        const fixes = document.getElementById("spamFixes");
 
-    function closeModal() {
-        modal.classList.remove('active');
-        document.body.style.overflow = ''; // Restore scrolling
-    }
+        if (!spamBlockedMessage || !reason || !fixes) {
+            return;
+        }
 
-    galleryItems.forEach(item => {
-        const img = item.querySelector('img');
-        const caption = item.querySelector('.caption');
-        const expandBtn = item.querySelector('.expand-btn');
-
-        if (!img) return;
-
-        const captionText = caption ? caption.textContent : '';
-
-        // Click on image to expand
-        img.addEventListener('click', (e) => {
-            e.stopPropagation();
-            openModal(img, captionText);
+        reason.textContent = result.reason;
+        fixes.replaceChildren();
+        result.fixes.forEach(fix => {
+            const item = document.createElement("li");
+            item.textContent = fix;
+            fixes.appendChild(item);
         });
 
-        // Click on expand button to expand
-        if (expandBtn) {
-            expandBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                openModal(img, captionText);
+        form.hidden = true;
+        spamBlockedMessage.hidden = false;
+        spamBlockedMessage.focus();
+    }
+
+    form.addEventListener("submit", async event => {
+        event.preventDefault();
+
+        const name = document.getElementById("name")?.value.trim();
+        const email = document.getElementById("email")?.value.trim();
+        const subject = document.getElementById("subject")?.value.trim() || "";
+        const message = document.getElementById("message")?.value.trim();
+
+        if (!name || !email || !message) {
+            showStatus("Please fill in all required fields.", "error");
+            return;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showStatus("Please enter a valid email address.", "error");
+            return;
+        }
+
+        const spamResult = checkSpam(email, subject);
+        if (spamResult.blocked) {
+            showSpamBlocked(spamResult);
+            return;
+        }
+
+        if (submitButton) {
+            submitButton.textContent = "Sending…";
+            submitButton.disabled = true;
+            submitButton.setAttribute("aria-busy", "true");
+        }
+
+        try {
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: new FormData(form),
+                headers: { Accept: "application/json" }
             });
+
+            if (!response.ok) {
+                throw new Error("Form submission failed");
+            }
+
+            form.hidden = true;
+            thankYouMessage.hidden = false;
+            thankYouMessage.focus();
+        } catch (error) {
+            showStatus("Sorry, there was a problem sending your message. Please try again and make sure the CAPTCHA is complete.", "error");
+            resetButton();
         }
     });
 
-    // Close modal when close button is clicked
-    closeBtn.addEventListener('click', closeModal);
+    sendAnotherButton?.addEventListener("click", () => {
+        thankYouMessage.hidden = true;
+        form.hidden = false;
+        form.reset();
+        resetButton();
+        formStatus.hidden = true;
+        document.getElementById("name")?.focus();
+    });
 
-    // Close modal when clicking outside the image
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal();
+    tryAgainButton?.addEventListener("click", () => {
+        spamBlockedMessage.hidden = true;
+        form.hidden = false;
+        resetButton();
+        formStatus.hidden = true;
+        document.getElementById("subject")?.focus();
+    });
+
+    form.addEventListener("reset", () => {
+        resetButton();
+        formStatus.hidden = true;
+    });
+}
+
+function initialiseGallery() {
+    const dialog = document.getElementById("galleryDialog");
+    const buttons = Array.from(document.querySelectorAll(".gallery-open"));
+
+    if (!dialog || buttons.length === 0) {
+        return;
+    }
+
+    const image = document.getElementById("dialogImage");
+    const caption = document.getElementById("dialogCaption");
+    const closeButton = document.getElementById("dialogClose");
+    const previousButton = document.getElementById("dialogPrevious");
+    const nextButton = document.getElementById("dialogNext");
+    let currentIndex = 0;
+    let trigger = null;
+
+    function showImage(index) {
+        currentIndex = (index + buttons.length) % buttons.length;
+        const button = buttons[currentIndex];
+        const thumbnail = button.querySelector("img");
+
+        image.src = button.dataset.fullSrc || thumbnail.currentSrc || thumbnail.src;
+        image.alt = thumbnail.alt;
+        caption.textContent = button.dataset.caption || "";
+    }
+
+    function openDialog(index, sourceButton) {
+        trigger = sourceButton;
+        showImage(index);
+        dialog.showModal();
+        document.body.classList.add("dialog-open");
+        closeButton.focus();
+    }
+
+    function closeDialog() {
+        dialog.close();
+    }
+
+    buttons.forEach((button, index) => {
+        button.addEventListener("click", () => openDialog(index, button));
+    });
+
+    previousButton.addEventListener("click", () => showImage(currentIndex - 1));
+    nextButton.addEventListener("click", () => showImage(currentIndex + 1));
+    closeButton.addEventListener("click", closeDialog);
+
+    dialog.addEventListener("click", event => {
+        if (event.target === dialog) {
+            closeDialog();
         }
     });
 
-    // Close modal with Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
+    dialog.addEventListener("keydown", event => {
+        if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            showImage(currentIndex - 1);
+        } else if (event.key === "ArrowRight") {
+            event.preventDefault();
+            showImage(currentIndex + 1);
+        } else if (event.key === "Escape") {
+            event.preventDefault();
+            closeDialog();
         }
     });
-});
 
-// YOUTUBE FACADE
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".youtube-facade").forEach(facade => {
+    dialog.addEventListener("close", () => {
+        document.body.classList.remove("dialog-open");
+        trigger?.focus();
+    });
+}
+
+function initialiseYouTubeFacades() {
+    document.querySelectorAll(".youtube-facade[data-videoid]").forEach(facade => {
         facade.addEventListener("click", () => {
-            const id = facade.dataset.videoid;
             const iframe = document.createElement("iframe");
-            iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+            iframe.className = "youtube-embed";
+            iframe.src = `https://www.youtube.com/embed/${facade.dataset.videoid}?autoplay=1`;
+            iframe.title = facade.dataset.videoTitle || "YouTube video";
             iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
             iframe.allowFullscreen = true;
-            iframe.frameBorder = "0";
             facade.replaceWith(iframe);
         });
     });
-});
+}
+
+function initialiseTrackAudio() {
+    const tracks = Array.from(document.querySelectorAll(".track-audio"));
+    const toast = document.getElementById("playback-toast");
+
+    tracks.forEach(track => {
+        track.addEventListener("ratechange", () => {
+            if (track.playbackRate !== 1) {
+                track.playbackRate = 1;
+                if (toast) {
+                    toast.classList.add("show");
+                    window.setTimeout(() => toast.classList.remove("show"), 2200);
+                }
+            }
+        });
+
+        track.addEventListener("play", () => {
+            tracks.filter(otherTrack => otherTrack !== track).forEach(otherTrack => otherTrack.pause());
+        });
+    });
+}
+
+function initialiseInfoToggles() {
+    document.querySelectorAll("[data-info-toggle]").forEach(toggle => {
+        const target = document.getElementById(toggle.getAttribute("aria-controls"));
+
+        if (!target) {
+            return;
+        }
+
+        toggle.addEventListener("click", () => {
+            const open = toggle.getAttribute("aria-expanded") !== "true";
+            toggle.setAttribute("aria-expanded", String(open));
+            target.hidden = !open;
+        });
+    });
+}

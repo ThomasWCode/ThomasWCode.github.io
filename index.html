@@ -1,112 +1,78 @@
 ---
 permalink: /
 ---
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thomas White - Homepage</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Thomas White</title>
+    <meta name="description" content="Thomas White's personal homepage: programming projects, physics, sport, music, volunteering, adventures and more.">
+    <link rel="canonical" href="https://thomaswhite.me/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Thomas White — Personal homepage">
+    <meta property="og:description" content="Programming, physics, music, running, adventures and whatever interesting project comes next.">
+    <meta property="og:url" content="https://thomaswhite.me/">
+    <meta property="og:image" content="https://thomaswhite.me/Images/thomasw.png">
+    <meta name="theme-color" content="#214e3b">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" href="/favicon.png">
-
-    <link rel="preload" href="/CSS/general.css" as="style">
-    <link rel="preload" href="/CSS/index.css" as="style">
-    <link rel="preload" href="/logo-text.png" as="image">
-    <link rel="preload" href="/logo-animation.webm" as="video" type="video/webm">
-
-    <link rel="stylesheet" href="/CSS/general.css"/>
-    <link rel="stylesheet" href="/CSS/index.css"/>
-
-    <script async id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/50db71ebcc00123857cce656/script.js"></script>
-
+    <link rel="stylesheet" href="/CSS/general.css">
+    <link rel="stylesheet" href="/CSS/index.css">
+    <script async id="cookieyes" src="https://cdn-cookieyes.com/client_data/50db71ebcc00123857cce656/script.js"></script>
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Thomas White",
-        "url": "https://thomaswhite.me",
-        "image": "https://thomaswhite.me/favicon.png",
-        "sameAs": [
-        "https://github.com/ThomasWCode",
-        "https://www.youtube.com/@leopardbookshop7761"
-        ]
-    }
-    </script>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DZEP97F05S"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-DZEP97F05S');
+    {"@context":"https://schema.org","@type":"Person","name":"Thomas White","url":"https://thomaswhite.me","image":"https://thomaswhite.me/favicon.png","sameAs":["https://github.com/ThomasWCode","https://www.youtube.com/@leopardbookshop7761"]}
     </script>
 </head>
 <body>
-    <div id="loading-screen">
-        <video id="loading-gif" muted autoplay playsinline></video>
-    </div>
-
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <div class="page-container">
-        <header>
-            <nav class="navbar">
-                <div class="logo-container">
-                    <a href="/" class="logo-link">
-                        <img src="/logo-text.png" class="logo-static">
-                        <video class="logo-hover-video" muted playsinline>
-                            <source src="/logo-animation.webm" type="video/webm">
-                        </video>
-                    </a>
-                    <strong><a href="/" style="text-decoration: none; color: white;"><div class="logo">Thomas White - Homepage</div></a></strong>
+        <header class="site-header">
+            <nav class="navbar" aria-label="Primary navigation">
+                <div class="navbar-inner">
+                    <div class="logo-container">
+                        <a href="/" class="logo-link" aria-label="Thomas White home"><img src="/logo-text.png" class="logo-static" width="421" height="241" alt=""><video class="logo-hover-video" muted playsinline preload="none" aria-hidden="true"><source src="/logo-animation.webm" type="video/webm"></video></a>
+                        <a class="brand-name" href="/">Thomas White</a>
+                    </div>
+                    <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation"><span class="nav-toggle-lines" aria-hidden="true"></span><span class="nav-toggle-label">Menu</span></button>
+                    <div class="nav-panel" id="primary-navigation">
+                        <ul class="nav-links">
+                            <li><a href="/" aria-current="page">Home</a></li><li><a href="/programming/">Programming</a></li><li><a href="/sport/">Sport</a></li><li><a href="/music&drama/">Music &amp; Drama</a></li><li><a href="/volunteering/">Volunteering</a></li><li><a href="/gallery/">Gallery</a></li>
+                            <li class="nav-more"><span class="mobile-more-label">More from Thomas</span><button class="more-toggle" type="button" aria-expanded="false" aria-controls="more-navigation">More</button><ul class="more-menu" id="more-navigation" hidden><li><a href="/tedx/">TEDx Talk</a></li><li><a href="/youtube/">YouTube Archive</a></li><li><a href="/testimonials/">Testimonials</a></li></ul></li>
+                        </ul>
+                        <a class="contact-nav" href="/contact/">Contact :)</a>
+                    </div>
                 </div>
-                <ul class="nav-links">
-                    <li><a class="current" href="/">Overview</a></li>
-                    <li><a href="/programming/">Programming</a></li>
-                    <li><a href="/sport/">Sport</a></li>
-                    <li><a href="/music&drama/">Music & Drama</a></li>
-                    <li><a href="/volunteering/">Volunteering</a></li>
-                    <li><a href="/testimonials/">Testimonials</a></li>
-                    <li><a href="/gallery/">Gallery</a></li>
-                    <li><a href="/contact/">Contact :)</a></li>
-                </ul>
             </nav>
         </header>
-
-        <main class="content-wrapper">
-            <section class="hero">
-                <div class="hero-text">
-                    <h1>Hi, I'm Thomas</h1>
-                    <h3>Welcome to my homepage. Here you'll find some of my projects, interests, achievements and contact details!</h3>
+        <main id="main-content" class="content-wrapper">
+            <section class="page-hero home-hero">
+                <div class="hero-inner home-hero-grid">
+                    <div class="hero-copy"><p class="eyebrow">Personal homepage</p><h1>Hi, I’m Thomas.</h1><p class="hero-lede">I’m into programming, physics, music, running and whatever interesting project has caught my attention next.</p><div class="button-row"><a class="button button--paper" href="#interests">Explore my interests</a><a class="button button--secondary" href="/contact/">Contact me</a></div></div>
+                    <div class="portrait-wrap"><div class="portrait-frame"><picture><source type="image/webp" srcset="/Images/optimized/thomasw-480.webp 480w, /Images/optimized/thomasw-960.webp 960w" sizes="(max-width: 900px) 78vw, 390px"><img src="/Images/thomasw.png" width="2942" height="2942" alt="Thomas smiling in a garden" decoding="async" fetchpriority="high"></picture></div><span class="portrait-note">London, mostly outdoors</span></div>
                 </div>
             </section>
-
-            <section id="about" class="content-section about-section">
-                <div class="about-image">
-                    <img defer src="/Images/thomasw.png" width="200px" alt="Picture of me">
+            <section class="section section--paper" aria-labelledby="about-heading">
+                <div class="about-intro"><div><p class="eyebrow">A quick introduction</p><h2 id="about-heading">Curious about quite a lot.</h2></div><div class="prose"><p>Programming has been my biggest hobby since I was seven, but it shares the stage with astrophysics, particle physics and Design &amp; Technology. I like making things, understanding how they work and getting far too absorbed in the details.</p><p>Away from a screen, I’m usually running, hiking, playing drums or doing drama through LAMDA. Science-fiction books are another longstanding favourite—especially the Bobiverse series and Stephen Hawking’s writing.</p><aside class="dusty-note">I also have a cat called Dusty, who naturally has <a class="new-tab-link external-link" href="https://dusty.thomaswhite.me" target="_blank" rel="noopener noreferrer">his own website</a>.</aside></div></div>
+            </section>
+            <section class="section" id="interests" aria-labelledby="interests-heading">
+                <div class="section-heading"><p class="eyebrow">Pick a path</p><h2 id="interests-heading">There’s a lot to explore.</h2><p>Some things I’ve built, places I’ve been, challenges I’ve taken on and interests I keep coming back to.</p></div>
+                <div class="path-grid">
+                    <a class="path-card path-card--wide" href="/programming/"><img src="/Images/bouncing-balls.png" width="1597" height="1198" alt="Bouncing Ball Physics Simulation screenshot" loading="lazy" decoding="async"><div class="path-card-content"><h3>Programming</h3><p>Apps, simulations, games and the projects that taught me how to build things.</p></div></a>
+                    <a class="path-card" href="/sport/"><img src="/Images/brighton-tri.jpeg" width="1210" height="1613" alt="Thomas running at the Brighton Triathlon" loading="lazy" decoding="async"><div class="path-card-content"><h3>Sport</h3><p>Running, squash, Spartan races and one very memorable triathlon.</p></div></a>
+                    <a class="path-card" href="/music&drama/"><picture><source type="image/webp" srcset="/Images/optimized/drumming-band-480.webp 480w, /Images/optimized/drumming-band-960.webp 960w" sizes="(max-width: 650px) 100vw, 33vw"><img src="/Images/drumming-band.png" width="1920" height="1080" alt="Thomas playing drums with his school band" loading="lazy" decoding="async"></picture><div class="path-card-content"><h3>Music &amp; Drama</h3><p>Drums, school performances and years of LAMDA.</p></div></a>
+                    <a class="path-card path-card--wide" href="/volunteering/"><picture><source type="image/webp" srcset="/Images/optimized/spring-event-gillespie-park-480.webp 480w, /Images/optimized/spring-event-gillespie-park-960.webp 960w" sizes="(max-width: 650px) 100vw, 66vw"><img src="/Images/spring-event-gillespie-park.jpg" width="3024" height="4032" alt="Thomas volunteering at a Gillespie Park event" loading="lazy" decoding="async"></picture><div class="path-card-content"><h3>Volunteering</h3><p>Local events, a charity shop and the communities I’ve enjoyed helping.</p></div></a>
+                    <a class="path-card path-card--wide" href="/tedx/"><picture><source type="image/webp" srcset="/Images/optimized/tedx-talk-480.webp 480w, /Images/optimized/tedx-talk-960.webp 960w, /Images/optimized/tedx-talk-1600.webp 1600w" sizes="(max-width: 650px) 100vw, 66vw"><img src="/Images/tedx-talk.jpg" width="6048" height="4032" alt="Thomas speaking on a TEDx stage" loading="lazy" decoding="async"></picture><div class="path-card-content"><h3>My TEDx talk</h3><p>Bridging the gap between General Relativity and Quantum Mechanics.</p></div></a>
+                    <a class="path-card" href="/gallery/"><img src="/Images/peru-mountains.jpg" width="2688" height="1512" alt="Mountains on the Machu Picchu trail" loading="lazy" decoding="async"><div class="path-card-content"><h3>Gallery</h3><p>A visual wander through projects, races and adventures.</p></div></a>
                 </div>
-                <div class="about-text">
-                    <h2>About Me - An Overview</h2>
-                    <p class="h3-text">I'm 16 years old, growing up in the center of London. My main interests are programming (and other tech stuff), astro and particle physics and hiking.</p>
-                    <p class="h3-text">At school, my favourite subjects are Physics, DT (Design and Technology) and German. I have just finished my GCSEs.</p>
-                    <p class="h3-text">My favourite sport is running. I play drums and at school I'm in a band with two friends. I also do LAMDA.</p>
-                    <p class="h3-text">I have a cat, called Dusty, who has <a class="new-tab-link new-tab-link-white-gap" href="https://dusty.thomaswhite.me" target="_blank" rel="noopener noreferrer">his own website...</a></p>
-                    <hr>
-                    <p class="h3-text">My favourite fiction series is the Bobiverse series by Dennis E. Taylor (and his other stand-alone sci-fi novels).</p>
-                    <p class="h3-text">My favourite non-fiction books are Stephen Hawking's 'A Brief History of Time' and 'Brief Answers to the Big Questions'.</p>
-                    <p class="h3-text">I am currently reading 'The Anxious Generation' by Jonathan Haidt.</p>
-                </div>
+            </section>
+            <section class="section section--paper" aria-labelledby="rabbit-heading">
+                <div class="section-heading"><p class="eyebrow">Other rabbit holes</p><h2 id="rabbit-heading">A few more corners of the internet.</h2></div>
+                <div class="rabbit-grid"><a class="rabbit-card editorial-card" href="/youtube/"><div><h3>YouTube archive</h3><p>An early Roblox and programming channel—with the younger voice to prove it.</p></div><span class="link-arrow">Take a look</span></a><a class="rabbit-card editorial-card external-link" href="https://dusty.thomaswhite.me" target="_blank" rel="noopener noreferrer"><div><h3>Dusty’s website</h3><p>Because every cat deserves a dedicated corner of the web.</p></div><span class="link-arrow">Meet Dusty</span></a><a class="rabbit-card editorial-card" href="/testimonials/"><div><h3>Kind words</h3><p>A note from someone I worked with on a community website.</p></div><span class="link-arrow">Read it</span></a></div>
             </section>
         </main>
-
-        <footer>
-            <a href="/contact/"><button class="contact-btn"><h2>Contact Me</h2></button></a>
-            <p class="h3-text">&copy; 2025-2026 Thomas White. All rights reserved.</p>
-        </footer>
+        <footer class="site-footer"><div class="footer-inner"><div class="footer-top"><div><p class="footer-title">Made by Thomas with HTML, CSS and curiosity.</p><p>A personal collection of projects, interests and adventures.</p></div><div><p class="footer-heading">Explore</p><ul class="footer-links"><li><a href="/programming/">Programming</a></li><li><a href="/sport/">Sport</a></li><li><a href="/music&drama/">Music &amp; Drama</a></li><li><a href="/volunteering/">Volunteering</a></li><li><a href="/gallery/">Gallery</a></li></ul></div><div><p class="footer-heading">Elsewhere</p><ul class="footer-links"><li><a href="/tedx/">TEDx Talk</a></li><li><a href="/youtube/">YouTube Archive</a></li><li><a href="/testimonials/">Testimonials</a></li><li><a class="external-link" href="https://github.com/ThomasWCode" target="_blank" rel="noopener noreferrer">GitHub</a></li><li><a href="/contact/">Contact :)</a></li></ul></div></div><div class="footer-bottom"><p>&copy; 2025–<span data-current-year>2026</span> Thomas White.</p><p>Built in London.</p></div></div></footer>
     </div>
-
     <script defer src="/JS/script.js"></script>
 </body>
 </html>
