@@ -1,10 +1,10 @@
 .sport-stat {
     margin-bottom: 0.8rem;
     color: var(--terracotta);
-    font-size: 0.78rem;
-    font-weight: 850;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.94rem;
+    font-style: italic;
+    font-weight: 650;
 }
 
 .sport-image img {
@@ -25,28 +25,8 @@
     object-fit: cover;
 }
 
-.sports-list {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-    margin: 2rem 0 0;
-    padding: 0;
-    list-style: none;
-}
-
-.sports-list li {
-    padding: 1.2rem;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-small);
-    background: var(--paper);
-    font-family: "Fraunces", Georgia, serif;
-    font-size: 1.25rem;
-    font-weight: 650;
-}
-
 @media (max-width: 768px) {
-    .sport-image-pair,
-    .sports-list {
+    .sport-image-pair {
         grid-template-columns: 1fr;
     }
 }
