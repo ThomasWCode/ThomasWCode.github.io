@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initialiseLogoAnimation();
   initialiseNavigation();
   initialiseCurrentYear();
+  initialiseLastUpdated();
   initialiseContactForm();
   initialiseGallery();
   initialiseYouTubeFacades();
@@ -194,6 +195,69 @@ function initialiseCurrentYear() {
   document.querySelectorAll("[data-current-year]").forEach((element) => {
     element.textContent = String(new Date().getFullYear());
   });
+}
+
+async function initialiseLastUpdated() {
+  const dateElements = document.querySelectorAll("[data-last-updated]");
+
+  if (dateElements.length === 0) {
+    return;
+  }
+
+  function getOrdinalSuffix(day) {
+    if (day >= 11 && day <= 13) {
+      return "th";
+    }
+
+    if (day % 10 === 1) {
+      return "st";
+    }
+
+    if (day % 10 === 2) {
+      return "nd";
+    }
+
+    if (day % 10 === 3) {
+      return "rd";
+    }
+
+    return "th";
+  }
+
+  try {
+    const response = await fetch(
+      "https://api.github.com/repos/ThomasWCode/ThomasWCode.github.io/commits?per_page=1",
+      {
+        headers: {
+          Accept: "application/vnd.github+json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      return;
+    }
+
+    const [latestCommit] = await response.json();
+    const commitDate = new Date(latestCommit?.commit?.committer?.date);
+
+    if (Number.isNaN(commitDate.getTime())) {
+      return;
+    }
+
+    const day = commitDate.getUTCDate();
+    const month = commitDate.toLocaleDateString("en-GB", {
+      month: "long",
+      timeZone: "UTC",
+    });
+    const formattedDate = `${day}${getOrdinalSuffix(day)} ${month} ${commitDate.getUTCFullYear()}`;
+    const machineReadableDate = commitDate.toISOString().slice(0, 10);
+
+    dateElements.forEach((element) => {
+      element.dateTime = machineReadableDate;
+      element.textContent = formattedDate;
+    });
+  } catch {}
 }
 
 function initialiseContactForm() {
