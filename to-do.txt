@@ -1,0 +1,2 @@
+Copy new footer on index.html to other pages.
+Add recent projects to programming page.
