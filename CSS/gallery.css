@@ -1,169 +1,169 @@
 .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-auto-flow: dense;
-    gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-flow: dense;
+  gap: 1rem;
 }
 
 .gallery-item {
-    grid-column: span 4;
-    margin: 0;
+  grid-column: span 4;
+  margin: 0;
 }
 
 .gallery-item--wide {
-    grid-column: span 8;
+  grid-column: span 8;
 }
 
 .gallery-item--tall .gallery-open {
-    aspect-ratio: 3 / 4;
+  aspect-ratio: 3 / 4;
 }
 
 .gallery-item--wide .gallery-open {
-    aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 9;
 }
 
 .gallery-open {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    display: block;
-    overflow: hidden;
-    padding: 0;
-    border: 0;
-    border-radius: var(--radius-medium) var(--radius-medium) 0 0;
-    background: var(--sage-light);
-    cursor: zoom-in;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  display: block;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-medium) var(--radius-medium) 0 0;
+  background: var(--sage-light);
+  cursor: zoom-in;
 }
 
 .gallery-open img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 420ms ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 420ms ease;
 }
 
 .gallery-open::after {
-    position: absolute;
-    right: 0.7rem;
-    bottom: 0.7rem;
-    padding: 0.35rem 0.6rem;
-    border-radius: 999px;
-    background: rgba(23, 56, 43, 0.88);
-    color: var(--paper);
-    content: "Expand ↗";
-    font-size: 0.72rem;
-    font-weight: 800;
+  position: absolute;
+  right: 0.7rem;
+  bottom: 0.7rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(23, 56, 43, 0.88);
+  color: var(--paper);
+  content: "Expand ↗";
+  font-size: 0.72rem;
+  font-weight: 800;
 }
 
 .gallery-open:hover img {
-    transform: scale(1.035);
+  transform: scale(1.035);
 }
 
 .gallery-item figcaption {
-    min-height: 66px;
-    border: 1px solid var(--line);
-    border-top: 0;
-    border-radius: 0 0 var(--radius-medium) var(--radius-medium);
+  min-height: 66px;
+  border: 1px solid var(--line);
+  border-top: 0;
+  border-radius: 0 0 var(--radius-medium) var(--radius-medium);
 }
 
 .gallery-dialog {
-    width: min(94vw, 1200px);
-    max-width: none;
-    max-height: 94vh;
-    padding: 0;
-    border: 0;
-    border-radius: var(--radius-medium);
-    background: #111713;
-    color: var(--paper);
-    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+  width: min(94vw, 1200px);
+  max-width: none;
+  max-height: 94vh;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-medium);
+  background: #111713;
+  color: var(--paper);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
 }
 
 .gallery-dialog::backdrop {
-    background: rgba(10, 18, 14, 0.88);
-    backdrop-filter: blur(7px);
+  background: rgba(10, 18, 14, 0.88);
+  backdrop-filter: blur(7px);
 }
 
 .dialog-content {
-    position: relative;
-    display: grid;
-    place-items: center;
-    min-height: min(82vh, 780px);
-    padding: 3.5rem 4.7rem 5.5rem;
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: min(82vh, 780px);
+  padding: 3.5rem 4.7rem 5.5rem;
 }
 
 .dialog-content img {
-    max-width: 100%;
-    max-height: 70vh;
-    object-fit: contain;
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
 }
 
 .dialog-caption {
-    position: absolute;
-    right: 4.5rem;
-    bottom: 1.5rem;
-    left: 4.5rem;
-    margin: 0;
-    color: rgba(255, 253, 248, 0.8);
-    text-align: center;
+  position: absolute;
+  right: 4.5rem;
+  bottom: 1.5rem;
+  left: 4.5rem;
+  margin: 0;
+  color: rgba(255, 253, 248, 0.8);
+  text-align: center;
 }
 
 .dialog-control {
-    position: absolute;
-    z-index: 2;
-    width: 44px;
-    height: 44px;
-    display: grid;
-    place-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--paper);
-    cursor: pointer;
+  position: absolute;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--paper);
+  cursor: pointer;
 }
 
 .dialog-control:hover {
-    background: var(--paper);
-    color: var(--forest-dark);
+  background: var(--paper);
+  color: var(--forest-dark);
 }
 
 .dialog-close {
-    top: 1rem;
-    right: 1rem;
+  top: 1rem;
+  right: 1rem;
 }
 
 .dialog-previous,
 .dialog-next {
-    top: 50%;
-    transform: translateY(-50%);
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .dialog-previous {
-    left: 1rem;
+  left: 1rem;
 }
 
 .dialog-next {
-    right: 1rem;
+  right: 1rem;
 }
 
 @media (max-width: 768px) {
-    .gallery-item,
-    .gallery-item--wide {
-        grid-column: span 6;
-    }
+  .gallery-item,
+  .gallery-item--wide {
+    grid-column: span 6;
+  }
 }
 
 @media (max-width: 480px) {
-    .gallery-item,
-    .gallery-item--wide {
-        grid-column: 1 / -1;
-    }
+  .gallery-item,
+  .gallery-item--wide {
+    grid-column: 1 / -1;
+  }
 
-    .dialog-content {
-        padding: 4.2rem 1rem 6rem;
-    }
+  .dialog-content {
+    padding: 4.2rem 1rem 6rem;
+  }
 
-    .dialog-caption {
-        right: 1rem;
-        left: 1rem;
-    }
+  .dialog-caption {
+    right: 1rem;
+    left: 1rem;
+  }
 }

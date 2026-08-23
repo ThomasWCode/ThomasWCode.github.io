@@ -1,9 +1,9 @@
 .youtube-logo {
-    width: min(100%, 260px);
-    justify-self: center;
+  width: min(100%, 260px);
+  justify-self: center;
 }
 
 .youtube-logo img {
-    width: 100%;
-    image-rendering: auto;
+  width: 100%;
+  image-rendering: auto;
 }
