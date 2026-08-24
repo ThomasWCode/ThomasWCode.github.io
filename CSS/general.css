@@ -215,21 +215,9 @@ hr {
   border-radius: 8px;
 }
 
-.logo-static,
-.logo-hover-video {
-  position: absolute;
+.logo-link img {
   width: 58px;
   height: auto;
-  transition: opacity 220ms ease;
-}
-
-.logo-static {
-  opacity: 1;
-}
-
-.logo-hover-video {
-  opacity: 0;
-  pointer-events: none;
 }
 
 .brand-name {
@@ -1074,12 +1062,6 @@ figcaption {
   }
 }
 
-@media (hover: none), (pointer: coarse) {
-  .logo-hover-video {
-    display: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -1092,9 +1074,5 @@ figcaption {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-  }
-
-  .logo-hover-video {
-    display: none;
   }
 }

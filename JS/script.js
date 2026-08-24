@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   initialiseAnalytics();
   initialiseSkipLink();
-  initialiseLogoAnimation();
   initialiseNavigation();
   initialiseCurrentYear();
   initialiseLastUpdated();
@@ -79,34 +78,6 @@ function initialiseSkipLink() {
   mainContent.setAttribute("tabindex", "-1");
   skipLink.addEventListener("click", () => {
     window.requestAnimationFrame(() => mainContent.focus());
-  });
-}
-
-function initialiseLogoAnimation() {
-  const logoLink = document.querySelector(".logo-link");
-  const hoverVideo = document.querySelector(".logo-hover-video");
-  const staticImage = document.querySelector(".logo-static");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-  if (!logoLink || !hoverVideo || !staticImage || reduceMotion.matches) {
-    return;
-  }
-
-  logoLink.addEventListener("mouseenter", () => {
-    staticImage.style.opacity = "0";
-    hoverVideo.style.opacity = "1";
-    hoverVideo.currentTime = 0;
-    hoverVideo.play().catch(() => {});
-  });
-
-  logoLink.addEventListener("mouseleave", () => {
-    hoverVideo.style.opacity = "0";
-    staticImage.style.opacity = "1";
-
-    window.setTimeout(() => {
-      hoverVideo.pause();
-      hoverVideo.currentTime = 0;
-    }, 220);
   });
 }
 
