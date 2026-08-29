@@ -32,7 +32,6 @@ This document covers the files that normally need attention when content, pages,
 | `youtube.html` | `/youtube/` | `CSS/youtube.css` | Old YouTube channel content |
 | `testimonials.html` | `/testimonials/` | `CSS/testimonials.css` | Testimonials |
 | `contact.html` | `/contact/` | `CSS/contact.css` | Formspree contact form and reCAPTCHA |
-| `eigenstateblue.html` | `/eigenstateblue/` | `CSS/eigenstateblue.css` | No-index music page with audio players |
 
 ## Updating a page
 
