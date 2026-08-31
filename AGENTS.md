@@ -13,7 +13,6 @@ This repository contains the source for `thomaswhite.me`. It is a dependency-fre
 - `Fonts/` contains local Inter and Fraunces files and licences.
 - `logo-text.png`, `favicon.ico`, and `favicon.png` are shared brand assets.
 - `CNAME` sets the canonical domain to `thomaswhite.me`.
-- `vercel.json` redirects Vercel copies to the canonical domain and enables clean URLs.
 
 ## Page map
 
@@ -141,7 +140,7 @@ For gallery entries:
 - YouTube facades require `class="youtube-facade"`, a bare `data-videoid`, `data-video-title`, a thumbnail, and accessible button text.
 - Local videos belong in `Images/`; use optimized versions for normal playback when available.
 - Released audio belongs in `Music/Songs/` and unfinished clips in `Music/Previews/`. Use MP3, `type="audio/mpeg"`, `preload="metadata"`, and `class="track-audio"`.
-- If changing the domain, update `CNAME`, canonical and Open Graph URLs, structured-data URLs, identity/contact references, and `vercel.json` together.
+- If changing the domain, update `CNAME`, canonical and Open Graph URLs, structured-data URLs, and identity/contact references together.
 - If replacing fonts, update the relevant `@font-face` URL and retain its licence in `Fonts/`.
 
 ## Verification
