@@ -818,6 +818,20 @@ figcaption {
   margin: 0;
 }
 
+.footer-status-separator {
+  margin: 0 0.35rem;
+  color: rgba(255, 253, 248, 0.55);
+}
+
+.footer-status-link {
+  color: rgba(255, 253, 248, 0.78);
+  text-decoration: underline;
+}
+
+.footer-status-link:hover {
+  color: var(--paper);
+}
+
 .youtube-facade,
 .video-frame {
   position: relative;
