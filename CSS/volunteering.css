@@ -14,6 +14,23 @@
   object-fit: cover;
 }
 
+.namesake-callout {
+  justify-self: center;
+  width: min(100%, 300px);
+  padding: 1.25rem;
+  background: #cda5ef;
+}
+
+.namesake-callout .namesake-glyph {
+  width: min(100%, 150px);
+  margin: 0 auto 0.75rem;
+}
+
+.namesake-callout .namesake-wordmark {
+  width: min(100%, 190px);
+  margin: 0 auto 1.25rem;
+}
+
 @media (max-width: 768px) {
   .volunteer-gallery {
     grid-template-columns: 1fr;
