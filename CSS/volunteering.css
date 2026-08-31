@@ -31,6 +31,10 @@
   margin: 0 auto 1.25rem;
 }
 
+.namesake-callout .eyebrow {
+  color: var(--forest-dark);
+}
+
 @media (max-width: 768px) {
   .volunteer-gallery {
     grid-template-columns: 1fr;
