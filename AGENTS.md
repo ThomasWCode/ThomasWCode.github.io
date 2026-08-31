@@ -2,7 +2,7 @@
 
 ## Architecture
 
-This repository contains the source for `thomaswhite.me`. It is a dependency-free, multi-page site built with HTML, CSS, and vanilla JavaScript. GitHub Pages processes YAML front matter in each root-level HTML file to provide clean URLs. Do not introduce a framework, package manager, build step, or dependency unless the task explicitly requires it.
+This repository contains the source for `thomaswhite.me`. The published site is a dependency-free, multi-page site built with HTML, CSS, and vanilla JavaScript. GitHub Pages processes YAML front matter in each root-level HTML file to provide clean URLs. The npm packages are development-only linting and test tools; do not introduce a production framework, runtime dependency or build step unless the task explicitly requires it.
 
 - `index.html` is the homepage; the other root-level `.html` files are individual pages.
 - `CSS/general.css` contains shared design tokens, layout, navigation, footer, components, responsive rules, and reduced-motion rules.
@@ -13,6 +13,8 @@ This repository contains the source for `thomaswhite.me`. It is a dependency-fre
 - `Fonts/` contains local Inter and Fraunces files and licences.
 - `logo-text.png`, `favicon.ico`, and `favicon.png` are shared brand assets.
 - `CNAME` sets the canonical domain to `thomaswhite.me`.
+- `tests/` contains static, browser, visual, Lighthouse and deployed-site checks.
+- `docs/testing.md` documents local and CI test commands; `docs/status-page-operations.md` documents Better Stack monitoring and incident operations.
 
 ## Page map
 
@@ -70,6 +72,7 @@ The header and footer are repeated in every active HTML page rather than generat
 - Recheck `aria-current="page"` on every page after navigation changes.
 - Do not manually update only the copyright end year; `data-current-year` is populated at runtime.
 - Keep fallback text inside each `<time data-last-updated>`. `initialiseLastUpdated()` replaces it only when the GitHub API is available.
+- Keep the small `Status` link beside the last-modified label and point it to `https://status.thomaswhite.me/` on every active page.
 
 Useful searches:
 
@@ -142,17 +145,18 @@ For gallery entries:
 - Released audio belongs in `Music/Songs/` and unfinished clips in `Music/Previews/`. Use MP3, `type="audio/mpeg"`, `preload="metadata"`, and `class="track-audio"`.
 - If changing the domain, update `CNAME`, canonical and Open Graph URLs, structured-data URLs, and identity/contact references together.
 - If replacing fonts, update the relevant `@font-face` URL and retain its licence in `Fonts/`.
+- Better Stack monitors all ten public routes and hosts the public status page at `https://status.thomaswhite.me/`. Keep monitor keywords aligned with `tests/support/page-manifest.mjs`; follow `docs/status-page-operations.md` for DNS, notifications and incident changes. Do not add Vercel infrastructure or expose Better Stack account details in the repository.
 
 ## Verification
 
-There is no package manifest, build command, or general automated test suite. Do not claim a build or automated test pass.
+The repository has a development-only npm test toolchain and no production build step. Install Node.js 24, run `npm ci`, then install the Playwright browsers with `npx playwright install chromium firefox webkit`. On Linux, use `npx playwright install --with-deps chromium firefox webkit`. See `docs/testing.md` for the full command and scope reference.
 
 For relevant changes:
 
 1. Run `git diff --check`.
-2. Preview with `python -m http.server 8000 --bind 127.0.0.1` and use `/index.html`-style paths. This server does not process YAML front matter.
-3. Check affected pages at wide desktop, tablet, and phone widths.
-4. Navigate without a mouse; verify focus, tab order, and Escape behaviour.
-5. Check the browser console, changed assets, internal and external links, metadata, and header/footer consistency.
-6. Confirm reduced-motion behaviour for animation changes and basic usability without JavaScript where practical.
-7. Test Formspree, reCAPTCHA, CookieYes, and canonical-domain behaviour on the deployed domain when those integrations change.
+2. Run `npm run check` for the full deterministic suite: lint, static contracts, Playwright browser coverage, committed visual baselines and Lighthouse budgets.
+3. Run `npm audit --audit-level=high` after dependency changes.
+4. Run `npm run test:production` when the deployed site, routing, DNS or status-page integration changes. Run `npm run test:external-links` when link destinations change or as a periodic maintenance check.
+5. Preview manually when visual or interaction risk remains. `node tests/support/clean-url-server.mjs` serves clean paths at `http://127.0.0.1:4173`; unlike `python -m http.server`, it strips YAML front matter in memory and models GitHub Pages clean URLs.
+6. Check affected pages at wide desktop, tablet and phone widths. Navigate without a mouse; verify focus, tab order, Escape behaviour, the browser console, reduced motion and basic no-JavaScript usability as applicable.
+7. Test Formspree, reCAPTCHA, CookieYes and canonical-domain behaviour on the deployed domain when those integrations change; deterministic tests stub third-party services and do not prove their live behavior.
