@@ -1,0 +1,30 @@
+{
+  "name": "thomaswhite-me",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "lint": "eslint JS tests playwright.config.mjs lighthouse.config.mjs eslint.config.mjs stylelint.config.mjs && stylelint \"CSS/**/*.css\"",
+    "test:static": "node --test tests/static/*.test.mjs",
+    "test:e2e": "playwright test --project=chromium-desktop --project=chromium-phone --project=firefox-smoke --project=webkit-smoke --project=chromium-reduced-motion --project=chromium-no-js",
+    "test:visual": "playwright test --project=visual-chromium --workers=1",
+    "test:visual:update": "playwright test --project=visual-chromium --workers=1 --update-snapshots",
+    "test:lighthouse": "node tests/support/run-lighthouse.mjs",
+    "test:production": "node --test tests/production/site.test.mjs",
+    "test:external-links": "node --test tests/production/external-links.test.mjs",
+    "test": "npm run lint && npm run test:static && npm run test:e2e",
+    "check": "npm test && npm run test:visual && npm run test:lighthouse"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.62.1",
+    "eslint": "10.9.1",
+    "html-validate": "11.11.0",
+    "lighthouse": "13.4.1",
+    "stylelint": "17.14.1",
+    "stylelint-config-recommended": "18.0.0"
+  }
+}
