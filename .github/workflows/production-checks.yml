@@ -1,0 +1,33 @@
+name: Production checks
+
+on:
+  schedule:
+    - cron: "15 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-checks
+  cancel-in-progress: true
+
+jobs:
+  production:
+    name: Published site and status page
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run test:production
+      - id: calendar
+        shell: bash
+        run: echo "weekday=$(date -u +%u)" >> "$GITHUB_OUTPUT"
+      - name: Check external links on Mondays or manual runs
+        if: github.event_name == 'workflow_dispatch' || steps.calendar.outputs.weekday == '1'
+        run: npm run test:external-links
