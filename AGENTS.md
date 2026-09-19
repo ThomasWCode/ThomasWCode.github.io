@@ -71,7 +71,7 @@ The header and footer are repeated in every active HTML page rather than generat
 - Update footer link groups separately; they are not identical to the header.
 - Recheck `aria-current="page"` on every page after navigation changes.
 - Do not manually update only the copyright end year; `data-current-year` is populated at runtime.
-- Keep fallback text inside each `<time data-last-updated>`. `initialiseLastUpdated()` replaces it only when the GitHub API is available.
+- Keep fallback text inside each `<time data-last-updated>`, identical on every page and matching its `datetime` attribute. `initialiseLastUpdated()` replaces it with the deployed page's `Last-Modified` date, so the fallback is what no-JavaScript visitors see.
 - Keep the small `Status` link beside the last-modified label and point it to `https://status.thomaswhite.me/` on every active page.
 
 Useful searches:
@@ -100,7 +100,7 @@ All JavaScript is in `JS/script.js` and initializes after `DOMContentLoaded`. Pr
 - `initialiseSkipLink()`: keyboard focus transfer.
 - `initialiseNavigation()`: desktop “More” menu and mobile navigation.
 - `initialiseCurrentYear()`: `data-current-year` elements.
-- `initialiseLastUpdated()`: latest GitHub commit date with an embedded fallback.
+- `initialiseLastUpdated()`: deployment date from `document.lastModified` with an embedded fallback.
 - `initialiseContactForm()`: validation, submission, and result views.
 - `initialiseGallery()`: expanded-image dialog.
 - `initialiseYouTubeFacades()`: click-to-load YouTube embeds.

@@ -25,7 +25,7 @@
 
 ## Test boundaries
 
-- Deterministic browser tests replace CookieYes, GitHub, Formspree, reCAPTCHA, Google Analytics and YouTube network requests. They do not send contact messages or analytics events.
+- Deterministic browser tests replace CookieYes, Formspree, reCAPTCHA, Google Analytics and YouTube network requests, and pin the `Last-Modified` header of every page response so the footer date is fixed. They do not send contact messages or analytics events.
 - The contact form suite tests local validation, spam handling, success, failure, reset and retry views with a stubbed Formspree response. A real Formspree or reCAPTCHA submission remains a deployed-site manual check.
 - The clean-URL server strips the three-line YAML front matter in memory and maps `/example/` to `example.html`. It models GitHub Pages routing and contains no Vercel behavior.
 - Production and external-link checks require internet access and can fail because of DNS, provider downtime, bot blocking or rate limits. They retry transient failures and never submit forms or mutate remote state.

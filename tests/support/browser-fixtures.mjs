@@ -1,18 +1,11 @@
 import { expect } from "@playwright/test";
 
-const latestCommit = {
-  commit: {
-    committer: {
-      date: "2026-08-31T12:00:00Z",
-    },
-  },
-};
+const deployedAt = "Mon, 31 Aug 2026 12:00:00 GMT";
 
 export async function installDeterministicRoutes(
   page,
   {
-    githubStatus = 200,
-    githubBody = [latestCommit],
+    lastModified = deployedAt,
     formspreeStatus = 200,
     onAnalyticsRequest = () => {},
   } = {},
@@ -21,12 +14,21 @@ export async function installDeterministicRoutes(
     const url = new URL(route.request().url());
 
     if (url.hostname === "127.0.0.1") {
-      await route.continue();
-      return;
-    }
+      if (route.request().resourceType() !== "document") {
+        await route.continue();
+        return;
+      }
 
-    if (url.hostname === "api.github.com") {
-      await route.fulfill({ status: githubStatus, json: githubBody });
+      const response = await route.fetch();
+      const headers = { ...response.headers() };
+
+      if (lastModified === null) {
+        delete headers["last-modified"];
+      } else {
+        headers["last-modified"] = lastModified;
+      }
+
+      await route.fulfill({ response, headers });
       return;
     }
 

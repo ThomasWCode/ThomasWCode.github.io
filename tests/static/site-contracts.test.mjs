@@ -5,6 +5,8 @@ import test from "node:test";
 import { HtmlValidate } from "html-validate";
 import { pages, statusPageUrl } from "../support/page-manifest.mjs";
 import {
+  formatSiteDate,
+  readEmbeddedLastUpdated,
   readSiteFile,
   repositoryRoot,
   stripFrontMatter,
@@ -97,6 +99,13 @@ for (const page of pages) {
     assert.equal(matches(html, /class="footer-status-link"/g).length, 1);
   });
 
+  test(`${page.source} keeps a self-consistent last-updated fallback`, async () => {
+    const fallback = await readEmbeddedLastUpdated(page.source);
+
+    assert.match(fallback.datetime, /^\d{4}-\d{2}-\d{2}$/);
+    assert.equal(fallback.text, formatSiteDate(fallback.datetime));
+  });
+
   test(`${page.source} is valid HTML after front matter processing`, async () => {
     const report = await validator.validateString(stripFrontMatter(await readSiteFile(page.source)));
     const messages = report.results.flatMap((result) =>
@@ -106,6 +115,18 @@ for (const page of pages) {
     assert.equal(messages.join("\n"), "");
   });
 }
+
+test("every page ships the same last-updated fallback", async () => {
+  const fallbacks = await Promise.all(
+    pages.map(async (page) => {
+      const fallback = await readEmbeddedLastUpdated(page.source);
+
+      return `${fallback.datetime} ${fallback.text}`;
+    }),
+  );
+
+  assert.equal(new Set(fallbacks).size, 1);
+});
 
 test("active site files contain no Vercel deployment assumptions", async () => {
   const files = [
