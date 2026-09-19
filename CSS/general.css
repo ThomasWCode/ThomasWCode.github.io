@@ -48,6 +48,122 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-height) + 24px);
   overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+.site-scrollbar {
+  position: fixed;
+  z-index: 2800;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 14px;
+  pointer-events: none;
+}
+
+.site-scrollbar-track {
+  position: absolute;
+  top: 14px;
+  right: 0;
+  bottom: 14px;
+  width: 14px;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+.site-scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 14px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.site-scrollbar-thumb::before {
+  position: absolute;
+  top: 0;
+  right: 4px;
+  width: 6px;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--gold);
+  content: "";
+}
+
+.site-scrollbar-thumb:hover::before {
+  box-shadow: 0 0 0 1px var(--forest-dark);
+}
+
+.site-scrollbar-thumb:focus-visible {
+  outline-offset: 0;
+}
+
+.site-scrollbar-button {
+  position: absolute;
+  right: 0;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--gold);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.site-scrollbar-button::before {
+  position: absolute;
+  right: 3px;
+  width: 0;
+  height: 0;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  content: "";
+}
+
+.site-scrollbar-button-up {
+  top: 0;
+}
+
+.site-scrollbar-button-up::before {
+  top: 4px;
+  border-bottom: 6px solid currentColor;
+}
+
+.site-scrollbar-button-down {
+  bottom: 0;
+}
+
+.site-scrollbar-button-down::before {
+  bottom: 4px;
+  border-top: 6px solid currentColor;
+}
+
+.site-scrollbar-button:focus-visible {
+  outline-offset: -2px;
+}
+
+.dialog-open .site-scrollbar {
+  display: none;
+}
+
+@media (pointer: coarse) {
+  .site-scrollbar {
+    display: none;
+  }
+}
+
+@media print {
+  .site-scrollbar {
+    display: none;
+  }
 }
 
 [hidden] {

@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initialiseAnalytics();
   initialiseSkipLink();
   initialiseNavigation();
+  initialiseScrollbarTrack();
   initialiseCurrentYear();
   initialiseLastUpdated();
   initialiseContactForm();
@@ -160,6 +161,173 @@ function initialiseNavigation() {
 
   desktopQuery.addEventListener("change", syncNavigation);
   syncNavigation();
+}
+
+function initialiseScrollbarTrack() {
+  const root = document.documentElement;
+  const scrollbar = document.createElement("div");
+  const track = document.createElement("div");
+  const thumb = document.createElement("div");
+  const scrollUpButton = document.createElement("button");
+  const scrollDownButton = document.createElement("button");
+  const buttonSize = 14;
+  const minimumThumbSize = 44;
+  const lineScrollDistance = 48;
+  let updateFrame = null;
+  let draggedPointer = null;
+  let dragStartY = 0;
+  let dragStartScrollY = 0;
+  let dragMetrics = null;
+
+  scrollbar.className = "site-scrollbar";
+  scrollbar.setAttribute("role", "region");
+  scrollbar.setAttribute("aria-label", "Page scrolling controls");
+  track.className = "site-scrollbar-track";
+  thumb.className = "site-scrollbar-thumb";
+  thumb.setAttribute("role", "scrollbar");
+  thumb.setAttribute("aria-label", "Page scroll position");
+  thumb.setAttribute("aria-controls", "main-content");
+  thumb.setAttribute("aria-orientation", "vertical");
+  thumb.setAttribute("aria-valuemin", "0");
+  thumb.tabIndex = 0;
+
+  scrollUpButton.type = "button";
+  scrollUpButton.className = "site-scrollbar-button site-scrollbar-button-up";
+  scrollUpButton.setAttribute("aria-label", "Scroll up");
+  scrollDownButton.type = "button";
+  scrollDownButton.className = "site-scrollbar-button site-scrollbar-button-down";
+  scrollDownButton.setAttribute("aria-label", "Scroll down");
+
+  track.append(thumb);
+  scrollbar.append(scrollUpButton, track, scrollDownButton);
+  document.body.append(scrollbar);
+
+  function getScrollMetrics() {
+    const viewportHeight = Math.max(1, window.innerHeight);
+    const scrollHeight = Math.max(root.scrollHeight, document.body.scrollHeight);
+    const maximumScroll = Math.max(0, scrollHeight - viewportHeight);
+    const trackHeight = Math.max(0, viewportHeight - buttonSize * 2);
+    const proportionalThumbSize = trackHeight * (viewportHeight / scrollHeight);
+    const thumbHeight = Math.min(trackHeight, Math.max(minimumThumbSize, proportionalThumbSize));
+    const maximumThumbOffset = Math.max(0, trackHeight - thumbHeight);
+
+    return {
+      maximumScroll,
+      maximumThumbOffset,
+      thumbHeight,
+      trackHeight,
+    };
+  }
+
+  function scrollToPosition(top) {
+    const originalScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    window.scrollTo({ top, behavior: "auto" });
+    root.style.scrollBehavior = originalScrollBehavior;
+  }
+
+  function updateScrollbar() {
+    updateFrame = null;
+    const metrics = getScrollMetrics();
+    const thumbOffset = metrics.maximumScroll
+      ? (window.scrollY / metrics.maximumScroll) * metrics.maximumThumbOffset
+      : 0;
+
+    scrollbar.hidden = metrics.maximumScroll === 0;
+    thumb.style.height = `${metrics.thumbHeight}px`;
+    thumb.style.transform = `translateY(${thumbOffset}px)`;
+    thumb.setAttribute("aria-valuemax", String(Math.round(metrics.maximumScroll)));
+    thumb.setAttribute("aria-valuenow", String(Math.round(window.scrollY)));
+    thumb.setAttribute(
+      "aria-valuetext",
+      metrics.maximumScroll
+        ? `${Math.round((window.scrollY / metrics.maximumScroll) * 100)}%`
+        : "0%",
+    );
+  }
+
+  function requestScrollbarUpdate() {
+    if (updateFrame === null) {
+      updateFrame = window.requestAnimationFrame(updateScrollbar);
+    }
+  }
+
+  function scrollByDistance(distance) {
+    scrollToPosition(window.scrollY + distance);
+  }
+
+  scrollUpButton.addEventListener("click", () => scrollByDistance(-lineScrollDistance));
+  scrollDownButton.addEventListener("click", () => scrollByDistance(lineScrollDistance));
+
+  track.addEventListener("pointerdown", (event) => {
+    if (event.target === thumb) {
+      return;
+    }
+
+    const thumbRectangle = thumb.getBoundingClientRect();
+    const pageDistance = window.innerHeight * 0.9;
+    scrollByDistance(event.clientY < thumbRectangle.top ? -pageDistance : pageDistance);
+  });
+
+  thumb.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0) {
+      return;
+    }
+
+    draggedPointer = event.pointerId;
+    dragStartY = event.clientY;
+    dragStartScrollY = window.scrollY;
+    dragMetrics = getScrollMetrics();
+    thumb.setPointerCapture(event.pointerId);
+    event.preventDefault();
+  });
+
+  thumb.addEventListener("pointermove", (event) => {
+    if (event.pointerId !== draggedPointer || !dragMetrics?.maximumThumbOffset) {
+      return;
+    }
+
+    const pointerDistance = event.clientY - dragStartY;
+    const scrollDistance =
+      (pointerDistance / dragMetrics.maximumThumbOffset) * dragMetrics.maximumScroll;
+    scrollToPosition(dragStartScrollY + scrollDistance);
+  });
+
+  function stopDragging(event) {
+    if (event.pointerId !== draggedPointer) {
+      return;
+    }
+
+    draggedPointer = null;
+    dragMetrics = null;
+  }
+
+  thumb.addEventListener("pointerup", stopDragging);
+  thumb.addEventListener("pointercancel", stopDragging);
+  thumb.addEventListener("lostpointercapture", stopDragging);
+
+  thumb.addEventListener("keydown", (event) => {
+    const pageDistance = window.innerHeight * 0.9;
+    const keyboardActions = {
+      ArrowDown: () => scrollByDistance(lineScrollDistance),
+      ArrowUp: () => scrollByDistance(-lineScrollDistance),
+      End: () => scrollToPosition(getScrollMetrics().maximumScroll),
+      Home: () => scrollToPosition(0),
+      PageDown: () => scrollByDistance(pageDistance),
+      PageUp: () => scrollByDistance(-pageDistance),
+    };
+    const keyboardAction = keyboardActions[event.key];
+
+    if (keyboardAction) {
+      event.preventDefault();
+      keyboardAction();
+    }
+  });
+
+  window.addEventListener("scroll", requestScrollbarUpdate, { passive: true });
+  window.addEventListener("resize", requestScrollbarUpdate);
+  window.addEventListener("load", requestScrollbarUpdate, { once: true });
+  requestScrollbarUpdate();
 }
 
 function initialiseCurrentYear() {
