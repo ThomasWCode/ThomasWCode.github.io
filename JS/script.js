@@ -204,10 +204,12 @@ function initialiseLastUpdated() {
       return null;
     }
 
-    const [, month, day, year, hours, minutes, seconds] = parts.map(Number);
-    const publishedDate = new Date(year, month - 1, day, hours, minutes, seconds);
+    const [, month, dayOfMonth, year, hours, minutes, seconds] = parts.map(Number);
+    const publishedDate = new Date(year, month - 1, dayOfMonth, hours, minutes, seconds);
+    const elapsedSincePublished = Date.now() - publishedDate.getTime();
+    const browserSubstitutedNow = elapsedSincePublished >= 0 && elapsedSincePublished < 2000;
 
-    return Math.abs(Date.now() - publishedDate.getTime()) < 10000 ? null : publishedDate;
+    return browserSubstitutedNow ? null : publishedDate;
   }
 
   const publishedDate = getPublishedDate();
@@ -220,12 +222,13 @@ function initialiseLastUpdated() {
     return;
   }
 
-  const day = publishedDate.getDate();
-  const monthName = publishedDate.toLocaleDateString("en-GB", { month: "long" });
-  const formattedDate = `${day}${getOrdinalSuffix(day)} ${monthName} ${publishedDate.getFullYear()}`;
-  const paddedMonth = String(publishedDate.getMonth() + 1).padStart(2, "0");
-  const paddedDay = String(day).padStart(2, "0");
-  const machineReadableDate = `${publishedDate.getFullYear()}-${paddedMonth}-${paddedDay}`;
+  const day = publishedDate.getUTCDate();
+  const monthName = publishedDate.toLocaleDateString("en-GB", {
+    month: "long",
+    timeZone: "UTC",
+  });
+  const formattedDate = `${day}${getOrdinalSuffix(day)} ${monthName} ${publishedDate.getUTCFullYear()}`;
+  const machineReadableDate = publishedDate.toISOString().slice(0, 10);
 
   dateElements.forEach((element) => {
     const publishedTime = document.createElement("time");

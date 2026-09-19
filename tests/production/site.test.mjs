@@ -44,6 +44,33 @@ for (const page of pages) {
   });
 }
 
+test("every production page reports one site-wide Last-Modified date", async () => {
+  const headers = [];
+
+  for (const page of pages) {
+    const response = await fetchWithRetries(`${baseUrl}${page.path}`);
+    const lastModified = response.headers.get("last-modified");
+
+    assert.ok(lastModified, `${page.path} is missing a Last-Modified header`);
+    assert.ok(
+      Number.isFinite(Date.parse(lastModified)),
+      `${page.path} has an unparseable Last-Modified header`,
+    );
+    assert.ok(
+      Date.parse(lastModified) <= Date.now(),
+      `${page.path} reports a Last-Modified date in the future`,
+    );
+
+    headers.push(lastModified);
+  }
+
+  assert.equal(
+    new Set(headers).size,
+    1,
+    `the deployed pages disagree about the last deployment: ${[...new Set(headers)].join(", ")}`,
+  );
+});
+
 test("the public status subdomain serves the branded status page over HTTPS", async () => {
   assert.match(publicStatusUrl, /^https:\/\//);
   const response = await fetchWithRetries(publicStatusUrl);
