@@ -97,6 +97,20 @@ test("the current year and last-updated date use deterministic runtime values", 
   );
 });
 
+test.describe("a visitor fourteen hours ahead of UTC", () => {
+  test.use({ timezoneId: "Pacific/Kiritimati" });
+
+  test("sees the deployment's own UTC day, not their local one", async ({ page }) => {
+    await openDeterministicPage(page, "/", { lastModified: "Fri, 31 Jul 2026 23:30:00 GMT" });
+
+    await expect(page.locator("[data-last-updated] time")).toHaveText("31st July 2026");
+    await expect(page.locator("[data-last-updated] time")).toHaveAttribute(
+      "datetime",
+      "2026-07-31",
+    );
+  });
+});
+
 test("the last-updated fallback reports an unknown date without a Last-Modified header", async ({
   page,
 }) => {
