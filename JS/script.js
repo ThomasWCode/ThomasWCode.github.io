@@ -327,6 +327,7 @@ function initialiseScrollbarTrack() {
   window.addEventListener("scroll", requestScrollbarUpdate, { passive: true });
   window.addEventListener("resize", requestScrollbarUpdate);
   window.addEventListener("load", requestScrollbarUpdate, { once: true });
+  root.classList.add("site-scrollbar-active");
   requestScrollbarUpdate();
 }
 
