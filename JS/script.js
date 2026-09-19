@@ -195,30 +195,44 @@ function initialiseLastUpdated() {
     return "th";
   }
 
-  const parts = document.lastModified.match(
-    /^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})$/,
-  );
+  function getPublishedDate() {
+    const parts = document.lastModified.match(
+      /^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})$/,
+    );
 
-  if (!parts) {
+    if (!parts) {
+      return null;
+    }
+
+    const [, month, day, year, hours, minutes, seconds] = parts.map(Number);
+    const publishedDate = new Date(year, month - 1, day, hours, minutes, seconds);
+
+    return Math.abs(Date.now() - publishedDate.getTime()) < 10000 ? null : publishedDate;
+  }
+
+  const publishedDate = getPublishedDate();
+
+  if (!publishedDate) {
+    dateElements.forEach((element) => {
+      element.textContent = "unknown";
+    });
+
     return;
   }
 
-  const [, month, day, year, hours, minutes, seconds] = parts.map(Number);
-  const publishedDate = new Date(year, month - 1, day, hours, minutes, seconds);
-
-  if (Math.abs(Date.now() - publishedDate.getTime()) < 10000) {
-    return;
-  }
-
+  const day = publishedDate.getDate();
   const monthName = publishedDate.toLocaleDateString("en-GB", { month: "long" });
-  const formattedDate = `${day}${getOrdinalSuffix(day)} ${monthName} ${year}`;
-  const paddedMonth = String(month).padStart(2, "0");
+  const formattedDate = `${day}${getOrdinalSuffix(day)} ${monthName} ${publishedDate.getFullYear()}`;
+  const paddedMonth = String(publishedDate.getMonth() + 1).padStart(2, "0");
   const paddedDay = String(day).padStart(2, "0");
-  const machineReadableDate = `${year}-${paddedMonth}-${paddedDay}`;
+  const machineReadableDate = `${publishedDate.getFullYear()}-${paddedMonth}-${paddedDay}`;
 
   dateElements.forEach((element) => {
-    element.dateTime = machineReadableDate;
-    element.textContent = formattedDate;
+    const publishedTime = document.createElement("time");
+
+    publishedTime.dateTime = machineReadableDate;
+    publishedTime.textContent = formattedDate;
+    element.replaceChildren(publishedTime);
   });
 }
 

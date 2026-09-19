@@ -2,7 +2,6 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { pages, statusPageUrl } from "../support/page-manifest.mjs";
 import { openDeterministicPage } from "../support/browser-fixtures.mjs";
-import { readEmbeddedLastUpdated } from "../support/site-files.mjs";
 
 for (const sitePage of pages) {
   test(`${sitePage.path} renders its shell, metadata and accessible content`, async ({ page }) => {
@@ -91,15 +90,20 @@ test("the current year and last-updated date use deterministic runtime values", 
   await openDeterministicPage(page, "/");
 
   await expect(page.locator("[data-current-year]")).toHaveText(String(new Date().getFullYear()));
-  await expect(page.locator("[data-last-updated]")).toHaveText("31st August 2026");
-  await expect(page.locator("[data-last-updated]")).toHaveAttribute("datetime", "2026-08-31");
+  await expect(page.locator("[data-last-updated] time")).toHaveText("31st August 2026");
+  await expect(page.locator("[data-last-updated] time")).toHaveAttribute(
+    "datetime",
+    "2026-08-31",
+  );
 });
 
-test("the last-updated fallback survives a missing Last-Modified header", async ({ page }) => {
-  const fallback = await readEmbeddedLastUpdated();
+test("the last-updated fallback reports an unknown date without a Last-Modified header", async ({
+  page,
+}) => {
   await openDeterministicPage(page, "/", { lastModified: null });
 
-  await expect(page.locator("[data-last-updated]")).toHaveText(fallback.text);
+  await expect(page.locator("[data-last-updated]")).toHaveText("unknown");
+  await expect(page.locator("[data-last-updated] time")).toHaveCount(0);
 });
 
 test("analytics loads only after analytics consent", async ({ page }) => {
@@ -140,6 +144,6 @@ test("@no-js core content and the status link remain available without JavaScrip
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Hi, I’m Tom.");
   await expect(page.getByRole("link", { name: "Website status" })).toBeVisible();
   await expect(page.locator("[data-last-updated]")).toHaveText(
-    (await readEmbeddedLastUpdated()).text,
+    "unknown \u2013 please enable JavaScript",
   );
 });
