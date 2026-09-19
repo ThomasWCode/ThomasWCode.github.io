@@ -48,11 +48,16 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-height) + 24px);
   overflow-x: hidden;
-  scrollbar-width: none;
 }
 
-html::-webkit-scrollbar {
-  display: none;
+@media (pointer: fine) {
+  html.site-scrollbar-active {
+    scrollbar-width: none;
+  }
+
+  html.site-scrollbar-active::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .site-scrollbar {

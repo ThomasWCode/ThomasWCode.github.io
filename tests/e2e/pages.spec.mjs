@@ -86,6 +86,27 @@ test("the skip link moves keyboard focus to main content", async ({ page }) => {
   await expect(page.locator("#main-content")).toBeFocused();
 });
 
+test("the overlay only replaces the native scrollbar for fine pointers", async ({ page }) => {
+  await openDeterministicPage(page, "/");
+
+  const scrollbarState = await page.evaluate(() => ({
+    customScrollbarDisplay: getComputedStyle(document.querySelector(".site-scrollbar")).display,
+    hasFinePointer: matchMedia("(pointer: fine)").matches,
+    nativeScrollbarWidth: getComputedStyle(document.documentElement).scrollbarWidth,
+    overlayActive: document.documentElement.classList.contains("site-scrollbar-active"),
+  }));
+
+  expect(scrollbarState.overlayActive).toBe(true);
+
+  if (scrollbarState.hasFinePointer) {
+    expect(scrollbarState.customScrollbarDisplay).not.toBe("none");
+    expect(scrollbarState.nativeScrollbarWidth).toBe("none");
+  } else {
+    expect(scrollbarState.customScrollbarDisplay).toBe("none");
+    expect(scrollbarState.nativeScrollbarWidth).not.toBe("none");
+  }
+});
+
 test("the current year and last-updated date use deterministic runtime values", async ({ page }) => {
   await openDeterministicPage(page, "/");
 
@@ -160,4 +181,10 @@ test("@no-js core content and the status link remain available without JavaScrip
   await expect(page.locator("[data-last-updated]")).toHaveText(
     "unknown \u2013 please enable JavaScript",
   );
+  expect(
+    await page.evaluate(() => ({
+      nativeScrollbarWidth: getComputedStyle(document.documentElement).scrollbarWidth,
+      overlayActive: document.documentElement.classList.contains("site-scrollbar-active"),
+    })),
+  ).toEqual({ nativeScrollbarWidth: "auto", overlayActive: false });
 });
