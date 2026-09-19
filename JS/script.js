@@ -168,7 +168,7 @@ function initialiseCurrentYear() {
   });
 }
 
-async function initialiseLastUpdated() {
+function initialiseLastUpdated() {
   const dateElements = document.querySelectorAll("[data-last-updated]");
 
   if (dateElements.length === 0) {
@@ -195,40 +195,31 @@ async function initialiseLastUpdated() {
     return "th";
   }
 
-  try {
-    const response = await fetch(
-      "https://api.github.com/repos/ThomasWCode/ThomasWCode.github.io/commits?per_page=1",
-      {
-        headers: {
-          Accept: "application/vnd.github+json",
-        },
-      },
-    );
+  const parts = document.lastModified.match(
+    /^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})$/,
+  );
 
-    if (!response.ok) {
-      return;
-    }
+  if (!parts) {
+    return;
+  }
 
-    const [latestCommit] = await response.json();
-    const commitDate = new Date(latestCommit?.commit?.committer?.date);
+  const [, month, day, year, hours, minutes, seconds] = parts.map(Number);
+  const publishedDate = new Date(year, month - 1, day, hours, minutes, seconds);
 
-    if (Number.isNaN(commitDate.getTime())) {
-      return;
-    }
+  if (Math.abs(Date.now() - publishedDate.getTime()) < 10000) {
+    return;
+  }
 
-    const day = commitDate.getUTCDate();
-    const month = commitDate.toLocaleDateString("en-GB", {
-      month: "long",
-      timeZone: "UTC",
-    });
-    const formattedDate = `${day}${getOrdinalSuffix(day)} ${month} ${commitDate.getUTCFullYear()}`;
-    const machineReadableDate = commitDate.toISOString().slice(0, 10);
+  const monthName = publishedDate.toLocaleDateString("en-GB", { month: "long" });
+  const formattedDate = `${day}${getOrdinalSuffix(day)} ${monthName} ${year}`;
+  const paddedMonth = String(month).padStart(2, "0");
+  const paddedDay = String(day).padStart(2, "0");
+  const machineReadableDate = `${year}-${paddedMonth}-${paddedDay}`;
 
-    dateElements.forEach((element) => {
-      element.dateTime = machineReadableDate;
-      element.textContent = formattedDate;
-    });
-  } catch {}
+  dateElements.forEach((element) => {
+    element.dateTime = machineReadableDate;
+    element.textContent = formattedDate;
+  });
 }
 
 function initialiseContactForm() {
