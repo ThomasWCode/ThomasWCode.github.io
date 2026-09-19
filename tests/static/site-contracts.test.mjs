@@ -5,8 +5,6 @@ import test from "node:test";
 import { HtmlValidate } from "html-validate";
 import { pages, statusPageUrl } from "../support/page-manifest.mjs";
 import {
-  formatSiteDate,
-  readEmbeddedLastUpdated,
   readSiteFile,
   repositoryRoot,
   stripFrontMatter,
@@ -76,10 +74,7 @@ for (const page of pages) {
     assert.match(html, /<a class="skip-link" href="#main-content">/);
     assert.match(html, /<main id="main-content"(?:\s[^>]*)?>/);
     assert.equal(matches(html, /data-current-year/g).length, 1);
-    assert.equal(
-      matches(html, /<time data-last-updated datetime="\d{4}-\d{2}-\d{2}"\s*>/g).length,
-      1,
-    );
+    assert.equal(matches(html, /<span data-last-updated>/g).length, 1);
     assert.equal(matches(html, /aria-current="page"/g).length, 1);
   });
 
@@ -88,7 +83,10 @@ for (const page of pages) {
     const footerBottom = html.match(/<div class="footer-bottom">([\s\S]*?)<\/div>/)?.[1] || "";
     const lastUpdatedParagraph = footerBottom.match(/<p>\s*Last updated[\s\S]*?<\/p>/)?.[0] || "";
 
-    assert.match(lastUpdatedParagraph, /<time data-last-updated/);
+    assert.match(
+      lastUpdatedParagraph,
+      /<span data-last-updated>unknown \u2013 please enable JavaScript<\/span>\./,
+    );
     assert.match(lastUpdatedParagraph, /<span class="footer-status-separator" aria-hidden="true">·<\/span>/);
     assert.match(
       lastUpdatedParagraph,
@@ -97,13 +95,6 @@ for (const page of pages) {
       ),
     );
     assert.equal(matches(html, /class="footer-status-link"/g).length, 1);
-  });
-
-  test(`${page.source} keeps a self-consistent last-updated fallback`, async () => {
-    const fallback = await readEmbeddedLastUpdated(page.source);
-
-    assert.match(fallback.datetime, /^\d{4}-\d{2}-\d{2}$/);
-    assert.equal(fallback.text, formatSiteDate(fallback.datetime));
   });
 
   test(`${page.source} is valid HTML after front matter processing`, async () => {
@@ -115,18 +106,6 @@ for (const page of pages) {
     assert.equal(messages.join("\n"), "");
   });
 }
-
-test("every page ships the same last-updated fallback", async () => {
-  const fallbacks = await Promise.all(
-    pages.map(async (page) => {
-      const fallback = await readEmbeddedLastUpdated(page.source);
-
-      return `${fallback.datetime} ${fallback.text}`;
-    }),
-  );
-
-  assert.equal(new Set(fallbacks).size, 1);
-});
 
 test("active site files contain no Vercel deployment assumptions", async () => {
   const files = [

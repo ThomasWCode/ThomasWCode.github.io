@@ -28,26 +28,3 @@ export function decodeHtml(value) {
 export function textContent(markup) {
   return decodeHtml(markup.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim());
 }
-
-export function formatSiteDate(isoDate) {
-  const [year, month, day] = isoDate.split("-").map(Number);
-  const monthName = new Date(Date.UTC(year, month - 1, day)).toLocaleDateString("en-GB", {
-    month: "long",
-    timeZone: "UTC",
-  });
-  const suffix =
-    day >= 11 && day <= 13
-      ? "th"
-      : { 1: "st", 2: "nd", 3: "rd" }[day % 10] || "th";
-
-  return `${day}${suffix} ${monthName} ${year}`;
-}
-
-export async function readEmbeddedLastUpdated(relativePath = "index.html") {
-  const [, datetime, fallback] =
-    (await readSiteFile(relativePath)).match(
-      /<time data-last-updated datetime="([^"]+)"\s*>([\s\S]*?)<\/time\s*>/,
-    ) || [];
-
-  return { datetime, text: textContent(fallback || "") };
-}
