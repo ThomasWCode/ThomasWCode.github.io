@@ -2,7 +2,7 @@
 
 ## Install
 
-- Install Node.js 24, which is recorded in `.nvmrc` and enforced by `package.json`.
+- Install Node.js 24, which is recorded in `.nvmrc` and declared in `package.json`. npm only warns on a mismatch because `engine-strict` is not set; the version is not enforced.
 - Run `npm ci` to install the pinned development-only test dependencies from `package-lock.json`.
 - Install the browsers once:
   - Windows: `npx playwright install chromium firefox webkit`

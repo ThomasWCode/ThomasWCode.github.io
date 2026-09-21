@@ -20,9 +20,9 @@
 `npm run test:e2e`
 
 - Update these when behaviour changes: an initializer added or removed, a control renamed, a status message reworded, an interactive feature added to a page.
-- Visible strings asserted by name are the usual breakage. The contact form's status text and accessible button names in `tests/e2e/interactions.spec.mjs` are matched exactly, so rewording them in `JS/script.js` or the markup means updating the assertion in the same change.
+- Visible strings asserted by name are the usual breakage. The contact form's status text and accessible button names in `tests/e2e/interactions.spec.mjs` are matched by exact or substring text, so rewording them in `JS/script.js` or the markup means updating the assertion in the same change.
 - `tests/e2e/pages.spec.mjs` iterates the manifest, so a new page gains shell, metadata and accessibility coverage as soon as the manifest lists it.
-- Tests tagged `@smoke`, `@desktop-only`, `@phone-only`, `@reduced-motion` and `@no-js` are selected by the project greps in `playwright.config.mjs`. Keep a tag attached when moving or renaming a test, or its project silently stops running it.
+- Tests tagged `@smoke`, `@desktop-only`, `@phone-only`, `@reduced-motion` and `@no-js` are selected by the project greps in `playwright.config.mjs`. Keep a tag attached when moving or renaming a test; the tag decides which projects run it.
 - `tests/support/browser-fixtures.mjs` stubs CookieYes, Formspree, reCAPTCHA, Google Analytics and YouTube, and pins every page response's `Last-Modified` to `Mon, 31 Aug 2026 12:00:00 GMT`. Changing that fixture date changes the last-updated expectations and every visual baseline that shows the footer.
 
 ## Visual baselines
@@ -42,7 +42,7 @@ Seven baselines live in `tests/visual/site.visual.spec.mjs-snapshots/`, each suf
 | `footer-status-phone.png` | the `.footer-bottom` element at 390x844 |
 
 - A baseline needs regenerating only when the change alters pixels inside one of these regions.
-- Four of the seven are clipped to a single element and ignore everything outside it. Contact page copy outside `.contact-form`, for example, is not captured by any baseline.
+- Three of the seven are clipped to a single element and ignore everything outside it. Contact page copy outside `.contact-form`, for example, is not captured by any baseline.
 - `/` and `/programming/` are full-page captures, so any visible content change on those two pages requires a new baseline.
 - A change to `CSS/general.css`, the header, navigation, footer, fonts or design tokens affects all seven.
 - Regenerate with `npm run test:visual:update` on Windows. The committed files carry the `win32` platform suffix, so a Linux or macOS run neither validates nor reproduces them; it looks for baselines that do not exist. CI runs this job on `windows-latest`.
@@ -67,7 +67,7 @@ Seven baselines live in `tests/visual/site.visual.spec.mjs-snapshots/`, each suf
 1. Search the test tree for the strings on both sides of the change: `rg -n "old wording|new wording" tests/`.
 2. Check whether the page's manifest entry (path, title, heading, keyword) still holds.
 3. Ask whether the changed pixels fall inside one of the seven baseline regions listed above.
-4. Run the affected suites before concluding anything. `npm run check` covers all of them.
+4. Run the affected suites before concluding anything. `npm run check` covers every deterministic suite; the production and external-link checks run separately.
 5. Only then decide that an expectation itself is out of date.
 
 ## Worked examples
