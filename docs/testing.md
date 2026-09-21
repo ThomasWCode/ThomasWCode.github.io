@@ -36,3 +36,7 @@
 - `.github/workflows/ci.yml` runs on pull requests, pushes to `main` and manual dispatch. It does not deploy or mutate the site.
 - `.github/workflows/production-checks.yml` runs daily at approximately 06:15 UTC. External links run on Monday and on manual dispatch.
 - There is deliberately no branch-protection requirement. A direct push to `main` can therefore be published before CI finishes. The safe local sequence is `npm ci`, `npx playwright install chromium firefox webkit`, `npm run check`, then `git push`.
+
+## Related
+
+- `docs/updating-tests-and-baselines.md` explains which of these checks and which visual baselines a given change has to update, and which it does not.

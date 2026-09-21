@@ -5,16 +5,15 @@
 This repository contains the source for `thomaswhite.me`. The published site is a dependency-free, multi-page site built with HTML, CSS, and vanilla JavaScript. GitHub Pages processes YAML front matter in each root-level HTML file to provide clean URLs. The npm packages are development-only linting and test tools; do not introduce a production framework, runtime dependency or build step unless the task explicitly requires it.
 
 - `index.html` is the homepage; the other root-level `.html` files are individual pages.
-- `CSS/general.css` contains shared design tokens, layout, navigation, footer, components, responsive rules, and reduced-motion rules.
+- `CSS/general.css` contains shared design tokens, layout, navigation, footer, the overlay scrollbar, components, responsive rules, and reduced-motion rules.
 - `CSS/<page>.css` contains page-specific styles.
 - `JS/script.js` contains all shared behaviour.
 - `Images/` contains originals/fallbacks, local videos, and `Images/optimized/` derivatives.
-- `Music/` contains released songs and preview audio.
 - `Fonts/` contains local Inter and Fraunces files and licences.
 - `logo-text.png`, `favicon.ico`, and `favicon.png` are shared brand assets.
 - `CNAME` sets the canonical domain to `thomaswhite.me`.
 - `tests/` contains static, browser, visual, Lighthouse and deployed-site checks.
-- `docs/testing.md` documents local and CI test commands; `docs/status-page-operations.md` documents Better Stack monitoring and incident operations.
+- `docs/testing.md` documents local and CI test commands; `docs/updating-tests-and-baselines.md` documents when a check or visual baseline must change; `docs/status-page-operations.md` documents Better Stack monitoring and incident operations.
 
 ## Page map
 
@@ -99,6 +98,7 @@ All JavaScript is in `JS/script.js` and initializes after `DOMContentLoaded`. Pr
 - `initialiseAnalytics()`: consent-aware Google Analytics.
 - `initialiseSkipLink()`: keyboard focus transfer.
 - `initialiseNavigation()`: desktop “More” menu and mobile navigation.
+- `initialiseScrollbarTrack()`: overlay scrollbar for fine-pointer devices.
 - `initialiseCurrentYear()`: `data-current-year` elements.
 - `initialiseLastUpdated()`: deployment date from `document.lastModified`, rendered as a `<time>` element.
 - `initialiseContactForm()`: validation, submission, and result views.
@@ -106,6 +106,8 @@ All JavaScript is in `JS/script.js` and initializes after `DOMContentLoaded`. Pr
 - `initialiseYouTubeFacades()`: click-to-load YouTube embeds.
 - `initialiseTrackAudio()`: exclusive playback and rate reset.
 - `initialiseInfoToggles()`: `aria-controls`/`data-info-toggle` sections.
+
+`initialiseTrackAudio()` and `initialiseInfoToggles()` have no matching markup on any current page and return without effect; `tests/e2e/interactions.spec.mjs` covers track audio against injected elements.
 
 Extend the relevant initializer when possible. A new initializer must be called once in the `DOMContentLoaded` handler and return safely when its page-specific elements are absent.
 
@@ -142,7 +144,7 @@ For gallery entries:
 - Keep `formStatus`, `thankYouMessage`, `spamBlockedMessage`, `sendAnotherBtn`, and `tryAgainBtn` aligned with `initialiseContactForm()`.
 - YouTube facades require `class="youtube-facade"`, a bare `data-videoid`, `data-video-title`, a thumbnail, and accessible button text.
 - Local videos belong in `Images/`; use optimized versions for normal playback when available.
-- Released audio belongs in `Music/Songs/` and unfinished clips in `Music/Previews/`. Use MP3, `type="audio/mpeg"`, `preload="metadata"`, and `class="track-audio"`.
+- No page currently ships audio and there is no `Music/` directory. If audio returns, put released songs in `Music/Songs/` and unfinished clips in `Music/Previews/`, and use MP3, `type="audio/mpeg"`, `preload="metadata"`, and `class="track-audio"` so `initialiseTrackAudio()` applies.
 - If changing the domain, update `CNAME`, canonical and Open Graph URLs, structured-data URLs, and identity/contact references together.
 - If replacing fonts, update the relevant `@font-face` URL and retain its licence in `Fonts/`.
 - Better Stack monitors all ten public routes and hosts the public status page at `https://status.thomaswhite.me/`. Keep monitor keywords aligned with `tests/support/page-manifest.mjs`; follow `docs/status-page-operations.md` for DNS, notifications and incident changes. Do not add Vercel infrastructure or expose Better Stack account details in the repository.
