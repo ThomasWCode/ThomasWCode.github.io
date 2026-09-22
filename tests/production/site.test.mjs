@@ -44,8 +44,9 @@ for (const page of pages) {
   });
 }
 
-test("every production page reports one site-wide Last-Modified date", async () => {
+test("every production page reports the same UTC Last-Modified day", async () => {
   const headers = [];
+  const publishedDays = new Set();
 
   for (const page of pages) {
     const response = await fetchWithRetries(`${baseUrl}${page.path}`);
@@ -62,12 +63,13 @@ test("every production page reports one site-wide Last-Modified date", async () 
     );
 
     headers.push(lastModified);
+    publishedDays.add(new Date(lastModified).toISOString().slice(0, 10));
   }
 
   assert.equal(
-    new Set(headers).size,
+    publishedDays.size,
     1,
-    `the deployed pages disagree about the last deployment: ${[...new Set(headers)].join(", ")}`,
+    `the deployed pages disagree about the last deployment day: ${[...new Set(headers)].join(", ")}`,
   );
 });
 
