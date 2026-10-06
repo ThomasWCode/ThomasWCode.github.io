@@ -21,7 +21,7 @@
 - `npm run test:external-links` makes read-only reachability checks against published external links.
 - `npm test` runs lint, static checks and the deterministic browser suite.
 - `npm run check` adds visual regression and Lighthouse checks to `npm test`.
-- `npm audit --audit-level=high` checks the development toolchain for known high or critical advisories.
+- `node scripts/audit.mjs` checks the development toolchain for known high or critical advisories with `npm audit`, apart from the advisories it excuses, each with its reason. The only one now is `braces` (GHSA-vfj7-8cjw-p6xm), which has no fixed release yet. When a fix ships, remove the exception; the script warns once npm audit no longer reports an excused advisory.
 
 ## Test boundaries
 
